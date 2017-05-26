@@ -1,0 +1,7 @@
+{
+  "name": "edu",
+  "short_name": "edu",
+  "description": "edu app",
+  "start_url": "/",
+  "display": "standalone"
+}
