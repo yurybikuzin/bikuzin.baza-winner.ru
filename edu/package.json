@@ -1,0 +1,17 @@
+{
+  "name": "bikuzin_baza-winner_ru_edu",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+  },
+  "scripts": {
+    "deploy": "npm run deploy:bundled",
+    "deploy:bundled": "ssh stable-bikuzin.baza-winner.ru rm -rf /var/www/bikuzin/edu && scp -C -r build/bundled stable-bikuzin.baza-winner.ru:/var/www/bikuzin/edu/",
+    "prepare": "sed -E -i '' 's/(href|src)=\"\\//\\1=\"/g' build/unbundled/index.html",
+    "deploy:unbundled": "ssh stable-bikuzin.baza-winner.ru rm -rf /var/www/bikuzin/edu && sed -E -i '' 's/(href|src)=\"\\//\\1=\"/g' build/unbundled/index.html && scp -C -r build/unbundled stable-bikuzin.baza-winner.ru:/var/www/bikuzin/edu/"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "optionalDependencies": {}
+}
