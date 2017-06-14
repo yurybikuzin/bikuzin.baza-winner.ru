@@ -5,10 +5,13 @@
   "devDependencies": {
   },
   "scripts": {
+    "serve": "polymer serve --compile never",
+    "build": "polymer build",
     "deploy": "npm run deploy:bundled",
-    "deploy:bundled": "ssh stable-bikuzin.baza-winner.ru rm -rf /var/www/bikuzin/edu && scp -C -r build/bundled stable-bikuzin.baza-winner.ru:/var/www/bikuzin/edu/",
-    "prepare": "sed -E -i '' 's/(href|src)=\"\\//\\1=\"/g' build/unbundled/index.html",
-    "deploy:unbundled": "ssh stable-bikuzin.baza-winner.ru rm -rf /var/www/bikuzin/edu && sed -E -i '' 's/(href|src)=\"\\//\\1=\"/g' build/unbundled/index.html && scp -C -r build/unbundled stable-bikuzin.baza-winner.ru:/var/www/bikuzin/edu/"
+    "deploy:bundled": "npm run clean-before-deploy && scp -C -r build/bundled stable-bikuzin.baza-winner.ru:/var/www/bikuzin/edu/",
+    "deploy:unbundled": "npm run clean-before-deploy && npm run prepare-unbundled && scp -C -r build/unbundled stable-bikuzin.baza-winner.ru:/var/www/bikuzin/edu/",
+    "clean-before-deploy": "ssh stable-bikuzin.baza-winner.ru rm -rf /var/www/bikuzin/edu",
+    "prepare-unbundled": "sed -E -i '' 's/(href|src)=\"\\//\\1=\"/g' build/unbundled/index.html"
   },
   "engines": {
     "node": ">=6.0.0"

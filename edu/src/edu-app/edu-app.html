@@ -1,32 +1,409 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/resize-title.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/resize-snapped-title.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/material.html">
+<link rel="import" href="../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../edu-icons/edu-icons.html">
 
 <dom-module id="edu-app">
-  <template>
+  <template strip-whitespace>
     <style>
       :host {
         display: block;
+
+        /* https://designcode.io/iosdesign-guidelines */
+        --ios-background-color: #EFEFF4;
+        --ios-lines-color: #CECED2;
+        --ios-messages-color: #4CD964;
+        --ios-links-color: #007AFF;
+        --ios-settings-color: #8E8E93;
+        --ios-text-color: #000000;
+        --ios-min-padding: 8px;
+        --ios-button-height: 44px;
+        --ios-header-text-size: 20px;
+        --ios-body-text-size: 17px;
+        --ios-small-15-text-size: 15px;
+        --ios-small-14-text-size: 14px;
+        --ios-small-13-text-size: 13px;
+        --ios-small-12-text-size: 12px;
+        --ios-small-11-text-size: 11px;
+        --ios-navigation-bar-with-status-bar-height: 64px;
+        --ios-navigation-bar-without-status-bar-height: 44px;
       }
+      @media (orientation: portrait) {
+        :host {
+        }
+        #mainPage {
+          flex-direction: column;
+        }
+        .main-page-item {
+          width: 25vh;
+        }
+      }
+      @media (orientation: landscape) {
+        :host {
+        }
+        #mainPage {
+          flex-direction: row;
+        }
+        .main-page-item {
+          width: 25vw;
+        }
+      }
+      #mainPage {
+        height: 100vh;
+        width: 100vw;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+        .main-page-item {
+          box-sizing: border-box;
+          background-color: yellow;
+          border: 1px solid blue;
+          position: relative;
+        }
+        .main-page-item:before { /* https://stackoverflow.com/questions/19068070/how-to-style-a-div-to-be-a-responsive-square/28985475#28985475 */
+          content: '';
+          display: block;
+          padding-top: 100%;
+        }
+        .main-page-item-content {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          justify-content: center;
+          align-items: center;
+        }
+      #exercizeListPage {
+        box-sizing: border-box;
+      }
+        #exercizeListPageToolbar {
+          height: var(--ios-navigation-bar-without-status-bar-height);
+          background-color: var(--ios-background-color);
+          padding-left: var(--ios-min-padding);
+          padding-right: var(--ios-min-padding);
+        }
+        #exerciseList {
+          width: 100%;
+        }
+        .exercise-list-item-container {
+          cursor: pointer;
+          height: var(--ios-button-height);
+          padding-left: var(--ios-min-padding);
+        }
+        .exercise-list-item {
+          padding-left: var(--ios-min-padding);
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          border-bottom: 1px solid var(--ios-lines-color);
+        }
+        .exercise-list-item-container:first-of-type .exercise-list-item {
+          border-top: 1px solid var(--ios-lines-color);
+        }
+        div[main-title] > div {
+          display: flex;
+          flex-direction: row;
+          position: relative;
+        }
+        .left-button {
+          white-space: nowrap;
+          pointer-events: auto;
+          cursor: pointer;
+          font-size: var(--ios-body-text-size);
+          color: var(--ios-links-color);
+        }
+          .back-button-icon {
+            position: relative;
+            top: -0.06em;
+          }
+        .header {
+          white-space: nowrap;
+          flex: 1;
+          font-size: var(--ios-body-text-size);
+          font-weight: bold;
+        }
+          .header-title {
+            display: inline-block;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+          }
+        .right-button {
+        }
     </style>
-    <h2>Hello [[prop1]]!</h2>
+    <app-location route="{{route}}" use-hash-as-path></app-location>
+    <app-route
+      active="{{routeActive}}"
+      route="{{route}}"
+      pattern=":part"
+      data="{{routeData}}"
+      tail="{{subroute}}"
+    >
+    </app-route>
+    <app-route
+      active="{{subrouteActive}}"
+      route="{{subroute}}"
+      pattern="/:part"
+      data="{{subrouteData}}"
+    >
+    </app-route>
+
+    <template is="dom-if" if="[[_isEqual(page, 'mainPage')]]" restamp>
+      <div id="mainPage">
+        <template is="dom-repeat" items="[[_get(_defs)]]">
+          <div data-id$="[[item.id]]" class="main-page-item" on-tap="_mainPageItemTapHandler">
+            <div class="main-page-item-content">
+              <span>[[item.title]]</span>
+            </div>
+          </div>
+        </template>
+      </div>
+    </template>
+
+    <template is="dom-if" if="[[_isEqual(page, 'exerciseListPage')]]">
+      <app-header-layout fullbleed>
+        <app-header id="exercizeListPageHeader" 
+          slot="header" fixed reveals effects="waterfall"
+        >
+          <app-toolbar id="exercizeListPageToolbar">
+            <div main-title>
+              <div>
+                <span class="left-button" on-tap="_backToMainPage">
+                  <iron-icon class="back-button-icon" icon="edu:ios-back"></iron-icon>
+                  <span class="back-button-title">Назад</span
+                  ></span>
+                <span class="header"
+                  ><span class="header-title">[[_get(selectedWho, 'title')]]</span
+                ></span>
+                <span class="right-button"></span>
+              </div>
+            </div>
+          </app-toolbar>
+        </app-header>
+        <iron-list id="exerciseList" items="[[_get(selectedWho, 'exercises')]]">
+          <template>
+            <div data-id$="[[item.id]]" class="exercise-list-item-container" on-tap="_exerciseListItemTapHandler">
+              <div class="exercise-list-item">
+                <span>[[item.title]]</span>
+              </div>
+            </div>
+          </template>
+        </iron-list>
+      </app-header-layout>
+    </template>
+
+    <template is="dom-if" if="[[_isEqual(page, 'exerciseStartPage')]]" restamp>
+      Вы выбрали тест "[[selectedExercise.title]]"
+
+      <!-- [[who]][[exercise]] -->
+<!--       <div id="mainPage">
+        <template is="dom-repeat" items="[[_getDef()]]">
+          <div data-id$="[[item.id]]" class="main-page-item" on-tap="_mainPageItemTapHandler">
+            <div class="main-page-item-content">
+              <span>[[item.title]]</span>
+            </div>
+          </div>
+        </template>
+      </div>
+ -->    </template>
+
   </template>
 
   <script>
+  (function() {
     /**
      * @customElement
      * @polymer
      */
-    class EduApp extends Polymer.Element {
+    const _defs = {
+      nikifor: {
+        title: 'Никифор',
+        // exercises: [
+        //   'Сложение до 20',
+        //   'Вычитание до 20',
+        //   'Сложение до 100',
+        //   'Вычитание до 100',
+        // ],
+      },
+      tikhomir: {
+        title: 'Тихомир',
+        // exercises: [
+        //   'Сложение до 20',
+        //   'Вычитание до 20',
+        //   'Сложение до 100',
+        //   'Вычитание до 100',
+        // ],
+      },
+      miroslava: {
+        title: 'Мирослава',
+        exercises: {
+          'addition-20': {
+            title: 'Сложение до 20',
+          },
+          'subtraction-20': {
+            title: 'Вычитание до 20',
+          },
+          'addition-100': {
+            title: 'Сложение до 100',
+          },
+          'subtraction-100': {
+            title: 'Вычитание до 100',
+          },
+        },
+      },
+    };
+    _.forEach(_defs, (def, who) => {
+      def.id = who;
+      const exercises = _.get(def, 'exercises');
+      _.forEach(exercises, (exercise, id) => {
+        exercise.id = id;
+      });
+    });
+    // function supplyId(target) {
+    //   if (_.isObject(target)) {
+    //     _.forEach(target, (value, key) => {
+    //       value.id = key;
+    //     });
+    //   }
+    // }
+    // const _defsAsArray = _.map(_defs, (item, key) => { item.id = key; return item });
+    class EduApp extends Polymer.GestureEventListeners(Polymer.Element) {
       static get is() { return 'edu-app'; }
       static get properties() {
         return {
-          prop1: {
+          route: {
+            type: Object,
+          },
+          routeData: {
+            type: Object,
+          },
+          routeActive: {
+            type: Boolean,
+          },
+          subrouteData: {
+            type: Object,
+          },
+          subrouteActive: {
+            type: Boolean,
+          },
+          selectedWho: {
             type: String,
-            value: 'edu-app'
-          }
+            computed: '_computeSelected(routeData.*, routeActive)',
+          },
+          selectedExercise: {
+            type: String,
+            computed: '_computeSelected(subrouteData.*, subrouteActive, selectedWho, "exercises")',
+          },
+          tail: {
+            type: String,
+          },
+          page: {
+            type: String,
+            computed: '_computePage(selectedWho, selectedExercise)',
+          },
+          _defs: {
+            type: Object,
+            value: _defs,
+          },
         };
       }
+      static get observers() {
+        return [
+        ];
+      }
+      get _defs() {
+        return _defs;
+      }
+      _computePage(selectedWho, selectedExercise) {
+        const result = 
+          _.isNil(selectedWho) ? 'mainPage' :
+          _.isNil(selectedExercise) ? 'exerciseListPage' : 
+          'exerciseStartPage'
+        ;
+        console.log({result, selectedWho, selectedExercise})
+        return result;
+      }
+      // _getDef(...paths) {
+      //   const path = paths.join('.');
+      //   let result = path ? _.get(this._defs, path) : this._defs;
+      //   if (_.isObject(result)) {
+      //     result = _.map(result, (item, key) => { item.id = key; return item });
+      //   }
+      //   return result;
+      // }
+      _get(from, ...paths) {
+        const path = paths.join('.');
+        let result = path ? _.get(from, path) : from;
+        if (_.isObject(result)) {
+          result = _.map(result, (item, key) => { item.id = key; return item });
+        }
+        return result;
+      }
+      ready() {
+        super.ready();
+        this.addEventListener('dom-change', event => this._domChangeHandler(event));
+      }
+      _domChangeHandler(event) {
+        const exerciseList = this.root.querySelector('#exerciseList');
+        if (exerciseList) {
+          const exercizeListPageHeader = this.root.querySelector('#exercizeListPageHeader');
+          exerciseList.scrollTarget = exercizeListPageHeader.scrollTarget;
+        }
+      }
+      _computeSelected(routeDataChangeRecord, routeActive, selectedBase = undefined, ...paths) {
+        if (undefined === selectedBase) {
+          selectedBase = this._defs;
+        }
+        const result = !routeActive ? null : _.get(selectedBase, paths.concat(routeDataChangeRecord.base.part).join('.'));
+        console.log({'': '_computeSelected', result, selectedBase, routeActive, routeDataChangeRecord, paths});
+        return result;
+      }
+      _mainPageItemTapHandler(event) {
+        const who = event.currentTarget.dataset.id;
+        window.history.pushState({}, null, '#' + who);
+        window.dispatchEvent(new CustomEvent('location-changed'));
+      }
+      _exerciseListItemTapHandler(event) {
+        const exercise = event.currentTarget.dataset.id;
+        console.log(this.selectedWho)
+        window.history.pushState({}, null, '#' + this.selectedWho.id + '/' + exercise);
+        window.dispatchEvent(new CustomEvent('location-changed'));
+      }
+      _backToMainPage(event) {
+        window.history.pushState({}, null, '#');
+        window.dispatchEvent(new CustomEvent('location-changed'));
+      }
+      _isNull(item) {
+        return null === item;
+      }
+      _isEqual(a, b) {
+        const result = a == b;
+        console.log({'': '_isEqual', result, a, b});
+        return result;
+      }
+      _toJson(item) {
+        return JSON.stringify(item);
+      }
     }
-
     window.customElements.define(EduApp.is, EduApp);
+  })();
   </script>
 </dom-module>

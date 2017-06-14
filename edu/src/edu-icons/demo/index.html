@@ -1,0 +1,121 @@
+<html>
+  <link rel="import" href="../edu-icons.html">
+  <link rel="import" href="../../../bower_components/iron-iconset/iron-iconset.html">
+  <link rel="import" href="../../../bower_components/iron-meta/iron-meta.html">
+  <link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+
+<dom-module id="edu-icons-demo">
+  <template strip-whitespace>
+    <style>
+    .group {
+      display: flex;
+      flex-direction: row;
+    }
+    .group-label {
+      text-transform: capitalize;
+      font-size: 110%;
+      font-weight: bold;
+    }
+    iron-icon {
+      transition: all 0.2s;
+      -webkit-transition: all 0.2s;
+      border: 1px dotted silver;
+    }
+    iron-icon:hover {
+      fill: var(--google-yellow-700);
+    }
+    .set {
+      margin: auto;
+      padding: 1em 0;
+      border-bottom: 1px solid silver;
+      @apply(--layout-horizontal);
+      @apply(--layout-wrap);
+    }
+    .set:last-of-type {
+      border-bottom: none;
+    }
+    .set:nth-of-type(4n-3) {
+      color: var(--paper-grey-700);
+    }
+    .set:nth-of-type(4n-2) {
+      color: var(--paper-pink-500);
+    }
+    .set:nth-of-type(4n-1) {
+      color: var(--google-green-500);
+    }
+    .set:nth-of-type(4n) {
+      color: var( --google-blue-500);
+    }
+    .container {
+      min-width: 10em;
+      padding: 1em 0.5em;
+      text-align: center;
+      @apply(--layout-vertical);
+      @apply(--layout-center);
+      @apply(--layout-flex);
+    }
+    .container > div {
+      margin-top: 0.5em;
+      color: black;
+      font-size: var(--bw-theme-font-size-small-90);
+    }
+    </style>
+
+      <iron-meta id="ironMeta" type="iconset"></iron-meta>
+
+      <template is="dom-repeat" items="{{iconsets}}">
+        <template is="dom-if" if="[[_isEduIconset(item)]]">
+          <label class="group-label">[[item.name]]</label>
+          <div class="group">
+            <div class="set">
+              <template is="dom-repeat" items="{{_getIconNames(item)}}">
+                <span class="container">
+                  <iron-icon icon="{{item}}" icon-name$="[[item]]"></iron-icon>
+                  <div>{{item}}</div>
+                </span>
+              </template>
+            </div>
+          </div>
+        </template>
+      </template>
+
+  </template>
+  <script>
+  (function() {
+    class EduIconsDemo extends Polymer.GestureEventListeners(Polymer.Element) {
+      static get is() { return 'edu-icons-demo'; }
+      static get properties() {
+        return {
+          value: {
+            type: Object,
+          },
+          iconsets: {
+            type: Array,
+            observer: '_iconsetsChanged',
+          },
+        }
+      }
+      ready() {
+        super.ready();
+        this.iconsets = this.$.ironMeta.list;
+      }
+      _iconsetsChanged(newValue, oldValue) {
+        console.log(newValue)
+
+      }
+      _isEduIconset(iconset) {
+        return /^edu/.test(iconset.name);
+      }
+      _getIconNames(iconset) {
+        return iconset.getIconNames();
+      }
+    }
+    window.customElements.define(EduIconsDemo.is, EduIconsDemo);
+  })();
+  </script>
+</dom-module>
+
+  <body>
+    <edu-icons-demo></edu-icons-demo>
+  </body>
+</html>
