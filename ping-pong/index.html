@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>misha</title>
+    <meta name="description" content="misha app">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Roboto', sans-serif;
+      }
+      #content {
+        border-left: 5px solid red;
+        border-right: 5px solid red;
+        border-top: 5px solid yellowgreen;
+        border-bottom: 5px solid yellowgreen;
+        width: 100vw;
+        height: 100vh;
+        box-sizing: border-box;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .gate {
+        background-color: yellowgreen;
+        height: 18vh;
+        width: 20px;
+        position: absolute;
+        top: calc(50% - 9vh);
+      }
+      #leftGate {
+        left: 8px;
+      }
+      #rightGate {
+        right: 8px;
+      }
+      #ball {
+        width: 20px;
+        height: 20px;
+        background-color: blue;
+        position: absolute;
+        top: calc(50% - 10px);
+        left: calc(50% - 10px);
+        border-radius: 50%;
+      }
+      #pauseMessage {
+        background-color: #008000;
+        color: white;
+        padding: 1em;
+        border-radius: 0.5em;
+        cursor: pointer;
+      }
+      #goalsWrapper {
+        position: absolute;
+        left: 0;
+        top: 10px;
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+      #goals {
+        background-color: #009999;
+        color: white;
+        padding: 0.3em 0.6em;
+      }
+    </style>
+    <script>
+      let state; // can be 'playing' also
+      document.addEventListener("DOMContentLoaded", function(event) { 
+
+        const ball = document.getElementById('ball');
+        const leftGate = document.getElementById('leftGate');
+        const rightGate = document.getElementById('rightGate');
+        const pauseMessage = document.getElementById('pauseMessage');
+        const leftGoals = document.getElementById('leftGoals');
+        const rightGoals = document.getElementById('rightGoals');
+        const minTimeInterval = 1;
+        const maxTimeIntermal = 5;
+        const minBallStep = 1;
+
+        pauseMessage.addEventListener('click', function(event) {
+          setState('playing');
+        });
+        let leftGoalsValue = 0;
+        let rightGoalsValue = 0;
+        let topInc;
+        let leftInc;
+        let timeInterval;
+        let timeStart;
+        let ballStep;
+        function setState(newState) {
+          if (newState == state) return;
+          if ('pause' == newState) {
+            pauseMessage.style.display = '';
+            ball.style.display = 'none';
+            ball.style.top = '';
+            ball.style.left = '';
+          } else {
+            ball.style.display = '';
+            pauseMessage.style.display = 'none';
+            topInc = Math.random() >= 0.5 ? 1 : -1;
+            leftInc = Math.random() >= 0.5 ? 1 : -1;
+            timeInterval = maxTimeIntermal;
+            ballStep = minBallStep;
+            setTimeout(ballMovement, timeInterval);
+          }
+        }
+        function incLeftGoals() {
+          leftGoalsValue += 1;
+          leftGoals.innerText = leftGoalsValue + '';
+        }
+        function incRightGoals() {
+          rightGoalsValue += 1;
+          rightGoals.innerText = rightGoalsValue + '';
+        }
+        setState('pause');
+        function ballMovement() {
+          const ballComputedStyle = getComputedStyle(ball);
+          const ballRadius = parseInt(ballComputedStyle.height, 10) / 2;
+
+          let ballTop = parseInt(ballComputedStyle.top, 10);
+          if (ballTop <= 0) {
+            topInc = 1;
+          }
+          let ballBottom = parseInt(ballComputedStyle.bottom, 10);
+          if (ballBottom <= 0) {
+            topInc = -1;
+          }
+          let ballLeft = parseInt(ballComputedStyle.left, 10);
+          if (ballLeft <= 0) {
+            incLeftGoals();
+            setState('pause');
+            return;
+          }
+          let ballRight = parseInt(ballComputedStyle.right, 10);
+          if (ballRight <= 0) {
+            incRightGoals();
+            setState('pause');
+            return;
+          }
+
+          const ballCenterY = ballTop + ballRadius;
+
+          const leftGateComputedStyle = getComputedStyle(leftGate);
+          const leftGateTop = parseInt(leftGateComputedStyle.top, 10);
+          const leftGateLeft = parseInt(leftGateComputedStyle.left, 10);
+          const gateWidth = parseInt(leftGateComputedStyle.width, 10);
+          const gateHeight = parseInt(leftGateComputedStyle.height, 10);
+          if (
+            ballLeft <= leftGateLeft + gateWidth &&
+            ballCenterY >= leftGateTop - ballRadius &&
+            ballCenterY <= leftGateTop + gateHeight + ballRadius &&
+            true
+          ) {
+            if (timeInterval > minTimeInterval) {
+              timeInterval -= 1;
+            } else {
+              ballStep = ballStep + 1;
+            }
+            ballLeft = leftGateLeft + gateWidth;
+            leftInc = 1;
+          }
+
+          const rightGateComputedStyle = getComputedStyle(rightGate);
+          const rightGateTop = parseInt(rightGateComputedStyle.top, 10);
+          const rightGateLeft = parseInt(rightGateComputedStyle.left, 10);
+          if (
+            ballLeft + ballRadius * 2 >= rightGateLeft &&
+            ballCenterY >= rightGateTop - ballRadius &&
+            ballCenterY <= rightGateTop + gateHeight + ballRadius &&
+            true
+          ) {
+            if (timeInterval > minTimeInterval) {
+              timeInterval -= 1;
+            } else {
+              ballStep = ballStep + 1;
+            }
+            ballLeft = rightGateLeft - 2 * ballRadius;
+            leftInc = -1;
+          }
+
+          ballTop = ballTop + topInc * ballStep;
+          ballLeft = ballLeft + leftInc * ballStep;
+
+          ball.style.top = ballTop + 'px';
+          ball.style.left = ballLeft + 'px';
+
+          setTimeout(ballMovement, timeInterval);
+        };
+        document.body.addEventListener('keydown', function (event) {
+          if ('KeyW' == event.code) {
+            const computedStyle = getComputedStyle(leftGate);
+            let top = parseInt(computedStyle.top, 10);
+            const step = parseInt(computedStyle.height, 10) / 2;
+            top = top - Math.min(step, top);
+            leftGate.style.top = top + 'px';
+          } else if ('KeyS' == event.code) {
+            const computedStyle = getComputedStyle(leftGate);
+            let top = parseInt(computedStyle.top, 10);
+            let bottom = parseInt(computedStyle.bottom, 10);
+            const step = parseInt(computedStyle.height, 10) / 2;
+            top = top + Math.min(step, bottom);
+            leftGate.style.top = top + 'px';
+          } else if ('ArrowUp' == event.code) {
+            const computedStyle = getComputedStyle(rightGate);
+            let top = parseInt(computedStyle.top, 10);
+            const step = parseInt(computedStyle.height, 10) / 2;
+            top = top - Math.min(step, top);
+            rightGate.style.top = top + 'px';
+          } else if ('ArrowDown' == event.code) {
+            const computedStyle = getComputedStyle(rightGate);
+            let top = parseInt(computedStyle.top, 10);
+            let bottom = parseInt(computedStyle.bottom, 10);
+            const step = parseInt(computedStyle.height, 10) / 2;
+            top = top + Math.min(step, bottom);
+            rightGate.style.top = top + 'px';
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="content">
+      <div id="ball"></div>
+      <div id="goalsWrapper">
+        <div id="goals">
+          <span id="leftGoals">0</span>
+          :
+          <span id="rightGoals">0</span>
+        </div>
+      </div>
+      <div id="pauseMessage">Нажмите для старта</div>
+      <div id="leftGate" class="gate"></div>
+      <div id="rightGate" class="gate"></div>
+    </div>
+  </body>
+</html>

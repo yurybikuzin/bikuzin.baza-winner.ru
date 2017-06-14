@@ -1,0 +1,13 @@
+{
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+  },
+  "scripts": {
+    "deploy": "scp -C index.html stable-bikuzin.baza-winner.ru:/var/www/bikuzin/ping-pong/index.html"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "optionalDependencies": {}
+}
