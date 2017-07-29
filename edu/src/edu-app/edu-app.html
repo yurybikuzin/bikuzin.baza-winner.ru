@@ -719,7 +719,17 @@
       }
       return a;
     }
-    const twentyBase = [
+    function getBase(baseBase) {
+      const result = _.reduce(baseBase, (result, pair) => {
+        result.push(pair);
+        if (pair[0] != pair[1]) {
+          result.push(pair.slice().reverse());
+        }
+        return result;
+      }, []);
+      return result;
+    }
+    const twentyBase = getBase([
       [9, 2],
       [8, 3],
       [7, 4],
@@ -740,7 +750,26 @@
       [8, 8],
       [9, 8],
       [9, 9],
-    ];
+    ]);
+    const hundredBase = getBase([
+      [1, 1],
+      [1, 2],
+      [1, 3],
+      [1, 4],
+      [1, 5],
+      [1, 6],
+      [1, 7],
+      [2, 2],
+      [2, 3],
+      [2, 4],
+      [2, 5],
+      [2, 6],
+      [3, 2],
+      [3, 3],
+      [3, 4],
+      [3, 5],
+      [4, 4],
+    ]);
     function getMultiplicationExercise(base) {
       const key = 'multiplication-' + base;
       return {
@@ -816,7 +845,40 @@
         },
       },
     });
-    const tikhomirExercises = nikiforExercises;
+    const hunredExercises = {
+      'addition-100': {
+        title: 'Сложение до 100',
+        getItems: () => getHundredPairs(shuffle(twentyBase), shuffle(hundredBase).concat(shuffle(hundredBase))).map(getAdditionItem),
+      },
+      'subtraction-100': {
+        title: 'Вычитание до 100',
+        getItems: () => getHundredPairs(shuffle(twentyBase), shuffle(hundredBase).concat(shuffle(hundredBase))).map(getSubtractionItem),
+      },
+    };
+    const miroslavaExercises = Object.assign({
+      'addition-20': {
+        title: 'Сложение до 20',
+        getItems: () => shuffle(twentyBase).map(getAdditionItem),
+      },
+      'subtraction-20': {
+        title: 'Вычитание до 20',
+        getItems: () => shuffle(twentyBase).map(getSubtractionItem),
+      },
+    }, hunredExercises);
+    const tikhomirExercises = Object.assign({}, hunredExercises, nikiforExercises);
+    function getAdditionItem(pair) {
+      return { title: pair.join(' + ') + ' = ', answer: _.sum(pair) };
+    }
+    function getSubtractionItem(pair) {
+      return { title: [_.sum(pair), pair[0]].join(' - ') + ' = ', answer: pair[1] };
+    }
+    function getHundredPairs(twentyBase, hundredBase) {
+      return twentyBase.map(
+        pair => _
+          .zip(pair, hundredBase.shift())
+          .map(item => item[0] + item[1] * 10)
+      );
+    }
     const _defs = {
       nikifor: {
         title: 'Никифор',
@@ -828,46 +890,7 @@
       },
       miroslava: {
         title: 'Мирослава',
-        exercises: {
-          'addition-20': {
-            title: 'Сложение до 20',
-            getItems() {
-              function getItem(pair) {
-                return { title: pair.join(' + ') + ' = ', answer: pair[0] + pair[1] };
-              }
-              const result = shuffle(_.reduce(twentyBase, (result, pair) => {
-                result.push(getItem(pair));
-                if (pair[0] != pair[1]) {
-                  result.push(getItem(pair.reverse()));
-                }
-                return result;
-              }, []));
-              return result;
-            },
-          },
-          'subtraction-20': {
-            title: 'Вычитание до 20',
-            getItems() {
-              function getItem(pair) {
-                return { title: [pair[0] + pair[1], pair[0]].join(' - ') + ' = ', answer: pair[1] };
-              }
-              const result = shuffle(_.reduce(twentyBase, (result, pair) => {
-                result.push(getItem(pair));
-                if (pair[0] != pair[1]) {
-                  result.push(getItem(pair.reverse()));
-                }
-                return result;
-              }, []));
-              return result;
-            },
-          },
-          // 'addition-100': {
-          //   title: 'Сложение до 100',
-          // },
-          // 'subtraction-100': {
-          //   title: 'Вычитание до 100',
-          // },
-        },
+        exercises: miroslavaExercises,
       },
     };
     _.forEach(_defs, (def, who) => {
