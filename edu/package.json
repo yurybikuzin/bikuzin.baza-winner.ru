@@ -2,12 +2,11 @@
   "name": "bikuzin_baza-winner_ru_edu",
   "version": "0.0.1",
   "private": true,
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "scripts": {
-    "serve": "polymer serve --compile never",
+    "serve": "polymer serve --compile never --hostname 0.0.0.0",
     "build": "polymer build",
-    "deploy": "npm run deploy:bundled",
+    "deploy": "npm run deploy:unbundled",
     "deploy:bundled": "npm run clean-before-deploy && scp -C -r build/bundled stable-bikuzin.baza-winner.ru:/var/www/bikuzin/edu/",
     "deploy:unbundled": "npm run clean-before-deploy && npm run prepare-unbundled && scp -C -r build/unbundled stable-bikuzin.baza-winner.ru:/var/www/bikuzin/edu/",
     "clean-before-deploy": "ssh stable-bikuzin.baza-winner.ru rm -rf /var/www/bikuzin/edu",
@@ -16,5 +15,8 @@
   "engines": {
     "node": ">=6.0.0"
   },
-  "optionalDependencies": {}
+  "optionalDependencies": {},
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
 }

@@ -1,3 +1,4 @@
 /edu/bower_components
 .DS_Store
 /edu/build
+/edu/node_modules

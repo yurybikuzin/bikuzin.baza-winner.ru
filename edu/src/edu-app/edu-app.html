@@ -12,14 +12,16 @@
 <link rel="import" href="../../bower_components/app-route/app-route.html">
 <link rel="import" href="../../bower_components/iron-list/iron-list.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-input/iron-input.html">
+<link rel="import" href="../../bower_components/iron-a11y-keys/iron-a11y-keys.html">
+<link rel="import" href="../../bower_components/app-storage/app-localstorage/app-localstorage-document.html">
+
 <link rel="import" href="../edu-icons/edu-icons.html">
 
-<dom-module id="edu-app">
-  <template strip-whitespace>
+<dom-module id="ios-style">
+  <template>
     <style>
       :host {
-        display: block;
-
         /* https://designcode.io/iosdesign-guidelines */
         --ios-background-color: #EFEFF4;
         --ios-lines-color: #CECED2;
@@ -28,6 +30,7 @@
         --ios-settings-color: #8E8E93;
         --ios-text-color: #000000;
         --ios-min-padding: 8px;
+        --ios-listItem-padding: calc(2 * var(--ios-min-padding));
         --ios-button-height: 44px;
         --ios-header-text-size: 20px;
         --ios-body-text-size: 17px;
@@ -39,13 +42,331 @@
         --ios-navigation-bar-with-status-bar-height: 64px;
         --ios-navigation-bar-without-status-bar-height: 44px;
       }
+
+      /* http://blog.pamelafox.org/2012/05/triggering-numeric-keyboards-with-html5.html */
+      input::-webkit-outer-spin-button, 
+      input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+      }
+    </style>
+  </template>
+</dom-module>
+
+<dom-module id="edu-app-exercise-error-style">
+  <template>
+    <style>
+      .noError {
+        color: #008000;
+      }
+      .error {
+        color: #D00000;
+      }
+    </style>
+  </template>
+</dom-module>
+
+<script>
+(function() {
+  window.eduApp = window.eduApp || {};
+  window.eduApp.commonMixin = function(superClass) {
+    return class extends superClass {
+      static get properties() {
+        return {
+          isAttached: {
+            type: Boolean,
+            value: false,
+          },
+        };
+      }
+      connectedCallback() {
+        super.connectedCallback();
+        this.isAttached = true;
+      }
+      disconnectedCallback() {
+        super.disconnectedCallback();
+        this.isAttached = false;
+      }
+      _isEqual(a, b) {
+        const result = a == b;
+        return result;
+      }
+      _toJson(item) {
+        return JSON.stringify(item);
+      }
+      _choose(condition, ifTrue, ifFalse) {
+        return condition ? ifTrue : ifFalse;
+      }
+      _getUpperElementById(id) {
+        let node = this.root.host.parentNode;
+        while (
+          node.nodeType != Node.DOCUMENT_FRAGMENT_NODE &&
+          node.nodeType != Node.DOCUMENT_NODE &&
+          true
+        ) {
+          node = node.parentNode;
+        }
+        const result = node.querySelector('#' + id);
+        if (!result) {
+          let hostName;
+          if (node.nodeType == Node.DOCUMENT_NODE) {
+            hostName = 'body';
+          } else {
+            hostName = node.host.nodeName;
+            const hostId = node.host.getAttribute('id');
+            if (hostId) {
+              hostName += '#' + hostId;
+            }
+          }
+          throw new Error(`no element'#${id}' in ${hostName}`);
+        }
+        return result;
+      }
+    };
+  };
+})();
+</script>
+
+<dom-module id="edu-app-exercise-error">
+  <template strip-whitespace>
+    <style include="edu-app-exercise-error-style">
+    </style>
+    <span class$="[[_choose(_isNoError, 'noError', 'error')]]">[[_errorCountLabel]]</span>
+  </template>
+  <script>
+  (function() {
+    class EduAppExerciseError extends eduApp.commonMixin(Polymer.Element) {
+      static get is() { return 'edu-app-exercise-error'; }
+      static get properties() {
+        return {
+          errorCount: {
+            type: Number,
+            value: 0,
+          },
+          _isNoError: {
+            type: Boolean,
+            computed: '_computeIsNoError(errorCount)',
+          },
+          _errorCountLabel: {
+            type: String,
+            computed: '_computeErrorCountLabel(_isNoError, errorCount)',
+          },
+        };
+      }
+      _computeIsNoError(errorCount) {
+        const result = 0 == errorCount;
+        return result;
+      }
+      _computeErrorCountLabel(_isNoError, errorCount) {
+        const result = _isNoError ? 'Без ошибок' : 'Ошибок: ' + errorCount;
+        return result;
+      }
+    }
+    window.customElements.define(EduAppExerciseError.is, EduAppExerciseError);
+  })();
+  </script>
+</dom-module>
+
+<dom-module id="edu-app-page">
+  <template strip-whitespace>
+    <style include="ios-style">
+      :host {
+        display: block;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      #navBar {
+        height: var(--ios-navigation-bar-without-status-bar-height);
+        background-color: var(--ios-background-color);
+        padding-left: var(--ios-min-padding);
+        padding-right: var(--ios-min-padding);
+      }
+      div[main-title] > div {
+        display: flex;
+        flex-direction: row;
+        position: relative;
+      }
+      #leftButton {
+        white-space: nowrap;
+        pointer-events: auto;
+        cursor: pointer;
+        font-size: var(--ios-body-text-size);
+        color: var(--ios-links-color);
+      }
+      #rightButton {
+        white-space: nowrap;
+        pointer-events: auto;
+        cursor: pointer;
+        font-size: var(--ios-body-text-size);
+        color: var(--ios-links-color);
+      }
+        #backButtonIcon {
+          position: relative;
+          top: -0.06em;
+        }
+      #titleWrapper {
+        white-space: nowrap;
+        flex: 1;
+        font-size: var(--ios-body-text-size);
+        font-weight: bold;
+      }
+        #title {
+          display: inline-block;
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+    </style>
+    <app-header-layout fullbleed>
+      <app-header id="header"
+        slot="header" fixed reveals effects="waterfall"
+      >
+        <app-toolbar id="navBar">
+          <div main-title>
+            <div>
+              <span id="leftButton" on-tap="_leftButtonTapHandler">
+                <iron-icon id="backButtonIcon" icon="edu:ios-back"></iron-icon>
+                <slot name="leftButton"></slot>
+              </span>
+              <span id="titleWrapper">
+                <span id="title">
+                  <slot name="title"></slot>
+                </span>
+              </span>
+              <span id="rightButton" on-tap="_rightButtonTapHandler">
+                <slot name="rightButton"></slot>
+              </span>
+            </div>
+          </div>
+        </app-toolbar>
+      </app-header>
+      <slot id="pageContent" name="pageContent"></slot>
+    </app-header-layout>
+  </template>
+  <script>
+  (function() {
+    class EduAppPage extends eduApp.commonMixin(Polymer.GestureEventListeners(Polymer.Element)) {
+      static get is() { return 'edu-app-page'; }
+      static get properties() {
+        return {
+          scrollTargetAcceptor: {
+            type: [String, HTMLElement],
+            value: null,
+          },
+          focusTarget: {
+            type: [String, HTMLElement],
+            value: null,
+          },
+        };
+      }
+      static get observers() {
+        return [
+          '_setScrollTargetAcceptorScrollTarget(scrollTargetAcceptor, isAttached)',
+          '_setFocus(focusTarget, isAttached)',
+        ];
+      }
+      _setScrollTargetAcceptorScrollTarget(scrollTargetAcceptor, isAttached) {
+        if (isAttached && scrollTargetAcceptor) {
+          if (_.isString(scrollTargetAcceptor)) {
+            scrollTargetAcceptor = this._getUpperElementById(scrollTargetAcceptor);
+          }
+          scrollTargetAcceptor.scrollTarget = this.$.header.scrollTarget;
+        }
+      }
+      _setFocus(focusTarget, isAttached) {
+        if (isAttached && focusTarget) {
+          if (_.isString(focusTarget)) {
+            focusTarget = this._getUpperElementById(focusTarget);
+          }
+          setTimeout(() => {
+            focusTarget.focus();
+          }, 100);
+        }
+      }
+      _leftButtonTapHandler() {
+        this.dispatchEvent(new CustomEvent('left-tap', { bubbles: true, composed: true }));
+      }
+      _rightButtonTapHandler() {
+        this.dispatchEvent(new CustomEvent('right-tap', { bubbles: true, composed: true }));
+      }
+    }
+    window.customElements.define(EduAppPage.is, EduAppPage);
+  })();
+  </script>
+</dom-module>
+
+
+<dom-module id="edu-app-progress-bar">
+  <template strip-whitespace>
+    <style include="ios-style">
+      :host {
+        display: flex;
+        flex-direction: row;
+        position: relative;
+      }
+      #complete {
+        border-bottom: 1px solid var(--ios-links-color);
+      }
+      #remain {
+        border-bottom: 1px solid var(--ios-lines-color);
+      }
+    </style>
+    <div id="complete" style$="flex: [[_progressComplete]]"></div>
+    <div id="remain" style$="flex: [[_progressRemain]]"></div>
+  </template>
+  <script>
+  (function() {
+    class EduAppProgressBar extends eduApp.commonMixin(Polymer.Element) {
+      static get is() { return 'edu-app-progress-bar'; }
+      static get properties() {
+        return {
+          progress: {
+            type: Number,
+            value: 0,
+          },
+          _progressComplete: {
+            type: Number,
+            computed: '_computeProgressComplete(progress)',
+          },
+          _progressRemain: {
+            type: Number,
+            computed: '_computeProgressRemain(progress)',
+          },
+        };
+      }
+      _computeProgressComplete(progress) {
+        const result = Math.round(progress * 100);
+        return result;
+      }
+      _computeProgressRemain(progress) {
+        const result = Math.round((1 - progress) * 100);
+        return result;
+      }
+    }
+    window.customElements.define(EduAppProgressBar.is, EduAppProgressBar);
+  })();
+  </script>
+</dom-module>
+
+<dom-module id="edu-app">
+  <template strip-whitespace>
+    <style include="ios-style"></style>
+    <style include="edu-app-exercise-error-style">
+      :host {
+        display: block;
+        height: 100vh;
+        width: 100vw;
+      }
       @media (orientation: portrait) {
         :host {
         }
         #mainPage {
           flex-direction: column;
         }
-        .main-page-item {
+        .mainPageItem {
           width: 25vh;
         }
       }
@@ -55,30 +376,79 @@
         #mainPage {
           flex-direction: row;
         }
-        .main-page-item {
+        .mainPageItem {
           width: 25vw;
         }
       }
+      .pageContent {
+        position: relative;
+        flex: 1;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--ios-body-text-size);
+      }
+      .listItemContainer {
+        cursor: pointer;
+        height: var(--ios-button-height);
+        padding-left: var(--ios-listItem-padding);
+      }
+      .listItem {
+        padding-right: var(--ios-listItem-padding);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-bottom: 1px solid var(--ios-lines-color);
+      }
+      .listItemContainer:first-of-type .listItem {
+        border-top: 1px solid var(--ios-lines-color);
+      }
+      .title {
+        text-align: center;
+        font-weight: bold;
+      }
+      .link {
+        color: var(--ios-links-color);
+        cursor: pointer;
+      }
+      .exerciseError {
+        float: left;
+      }
+      .exerciseTiming {
+        float: right;
+      }
+      .exerciseItemAnswer {
+        float: left;
+      }
+      .exerciseItemTiming {
+        float: right;
+      }
+      
       #mainPage {
-        height: 100vh;
-        width: 100vw;
+        height: 100%;
+        width: 100%;
         box-sizing: border-box;
         display: flex;
         justify-content: space-around;
         align-items: center;
       }
-        .main-page-item {
+        .mainPageItem {
           box-sizing: border-box;
-          background-color: yellow;
-          border: 1px solid blue;
+          background-color: var(--ios-background-color);
+          border: 1px solid var(--ios-lines-color);
           position: relative;
+          border-radius: 10%;
+          cursor: pointer;
         }
-        .main-page-item:before { /* https://stackoverflow.com/questions/19068070/how-to-style-a-div-to-be-a-responsive-square/28985475#28985475 */
+        .mainPageItem:before { /* https://stackoverflow.com/questions/19068070/how-to-style-a-div-to-be-a-responsive-square/28985475#28985475 */
           content: '';
           display: block;
           padding-top: 100%;
         }
-        .main-page-item-content {
+        .mainPageItemContent {
           position: absolute;
           top: 0;
           bottom: 0;
@@ -90,238 +460,520 @@
           justify-content: center;
           align-items: center;
         }
+        .mainPageItemContent img {
+          width: 100%;
+          border-radius: 10%;
+        }
+
       #exercizeListPage {
         box-sizing: border-box;
       }
-        #exercizeListPageToolbar {
-          height: var(--ios-navigation-bar-without-status-bar-height);
-          background-color: var(--ios-background-color);
-          padding-left: var(--ios-min-padding);
-          padding-right: var(--ios-min-padding);
-        }
         #exerciseList {
           width: 100%;
         }
-        .exercise-list-item-container {
-          cursor: pointer;
-          height: var(--ios-button-height);
-          padding-left: var(--ios-min-padding);
-        }
-        .exercise-list-item {
-          padding-left: var(--ios-min-padding);
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          border-bottom: 1px solid var(--ios-lines-color);
-        }
-        .exercise-list-item-container:first-of-type .exercise-list-item {
-          border-top: 1px solid var(--ios-lines-color);
-        }
-        div[main-title] > div {
-          display: flex;
-          flex-direction: row;
-          position: relative;
-        }
-        .left-button {
-          white-space: nowrap;
-          pointer-events: auto;
-          cursor: pointer;
+        #userAnswerInput {
+          width: 3em;
+          padding: 0.3em;
+          border-radius: 0.3em;
+          border: 1px solid silver;
           font-size: var(--ios-body-text-size);
-          color: var(--ios-links-color);
         }
-          .back-button-icon {
-            position: relative;
-            top: -0.06em;
-          }
-        .header {
-          white-space: nowrap;
-          flex: 1;
-          font-size: var(--ios-body-text-size);
-          font-weight: bold;
+
+      #exerciseDetailsList .listItemContainer:first-of-type {
+        height: auto;
+      }
+
+      #exerciseDetailsList .listItemContainer:first-of-type .listItem{
+        padding-top: 1em;
+        padding-bottom: 1em; 
+      }
+      #exerciseStartPage .title {
+        margin-bottom: 1em;
+      }
+      #exerciseStepPageSummary {
+        position: absolute;
+        left: calc(2 * var(--ios-min-padding));
+        right: calc(2 * var(--ios-min-padding));
+        top: var(--ios-min-padding);
+        height: 2.8em;
+      }
+        #exerciseStepPageSummary .progressBar {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
         }
-          .header-title {
-            display: inline-block;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-          }
-        .right-button {
+      #exerciseFinishPage div[slot="pageContent"] {
+        text-align: center;
+      }
+        #exerciseFinishPage div[slot="pageContent"] > * {
+          display: block;
+          margin-bottom: 1em;
         }
+
     </style>
+
     <app-location route="{{route}}" use-hash-as-path></app-location>
     <app-route
-      active="{{routeActive}}"
+      active="{{whoPartActive}}"
       route="{{route}}"
       pattern=":part"
-      data="{{routeData}}"
-      tail="{{subroute}}"
+      data="{{whoData}}"
+      tail="{{whoTail}}"
     >
     </app-route>
     <app-route
-      active="{{subrouteActive}}"
-      route="{{subroute}}"
+      active="{{exercisePartActive}}"
+      route="{{whoTail}}"
       pattern="/:part"
-      data="{{subrouteData}}"
+      data="{{exerciseData}}"
+      tail="{{exerciseTail}}"
     >
     </app-route>
+    <app-route
+      active="{{exerciseStepPartActive}}"
+      route="{{exerciseTail}}"
+      pattern="/:part"
+      data="{{exerciseStepData}}"
+      tail="{{exerciseStepTail}}"
+    >
+    </app-route>
+
+    <app-localstorage-document key="exerciseItems" data="{{exerciseItems}}"></app-localstorage-document>
+    <app-localstorage-document key="exerciseTiming" data="{{exerciseTiming}}"></app-localstorage-document>
+    <app-localstorage-document key="exerciseErrorCount" data="{{exerciseErrorCount}}"></app-localstorage-document>
+    <app-localstorage-document key="exerciseDetails" data="{{exerciseDetails}}"></app-localstorage-document>
 
     <template is="dom-if" if="[[_isEqual(page, 'mainPage')]]" restamp>
       <div id="mainPage">
         <template is="dom-repeat" items="[[_get(_defs)]]">
-          <div data-id$="[[item.id]]" class="main-page-item" on-tap="_mainPageItemTapHandler">
-            <div class="main-page-item-content">
-              <span>[[item.title]]</span>
+          <div data-id$="[[item.id]]" class="mainPageItem" on-tap="_mainPageItemTapHandler">
+            <div class="mainPageItemContent">
+              <img src="[[item.src]]">
             </div>
           </div>
         </template>
       </div>
     </template>
 
-    <template is="dom-if" if="[[_isEqual(page, 'exerciseListPage')]]">
-      <app-header-layout fullbleed>
-        <app-header id="exercizeListPageHeader" 
-          slot="header" fixed reveals effects="waterfall"
+    <template is="dom-if" if="[[_isEqual(page, 'exerciseListPage')]]" restamp>
+      <edu-app-page 
+        id="exerciseListPage"
+        on-left-tap="_backToMainPage"
+        scroll-target-acceptor="exerciseList"
+      >
+        <span slot="leftButton">Назад</span>
+        <span slot="title">[[_get(selectedWho, 'title')]]</span>
+        <iron-list id="exerciseList"  
+          slot="pageContent" 
+          items="[[_get(selectedWho, 'exercises')]]"
         >
-          <app-toolbar id="exercizeListPageToolbar">
-            <div main-title>
-              <div>
-                <span class="left-button" on-tap="_backToMainPage">
-                  <iron-icon class="back-button-icon" icon="edu:ios-back"></iron-icon>
-                  <span class="back-button-title">Назад</span
-                  ></span>
-                <span class="header"
-                  ><span class="header-title">[[_get(selectedWho, 'title')]]</span
-                ></span>
-                <span class="right-button"></span>
-              </div>
-            </div>
-          </app-toolbar>
-        </app-header>
-        <iron-list id="exerciseList" items="[[_get(selectedWho, 'exercises')]]">
           <template>
-            <div data-id$="[[item.id]]" class="exercise-list-item-container" on-tap="_exerciseListItemTapHandler">
-              <div class="exercise-list-item">
+            <div data-id$="[[item.id]]" class="listItemContainer" on-tap="_exerciseListItemTapHandler">
+              <div class="listItem">
                 <span>[[item.title]]</span>
               </div>
             </div>
           </template>
         </iron-list>
-      </app-header-layout>
+      </edu-app-page>
     </template>
 
     <template is="dom-if" if="[[_isEqual(page, 'exerciseStartPage')]]" restamp>
-      Вы выбрали тест "[[selectedExercise.title]]"
-
-      <!-- [[who]][[exercise]] -->
-<!--       <div id="mainPage">
-        <template is="dom-repeat" items="[[_getDef()]]">
-          <div data-id$="[[item.id]]" class="main-page-item" on-tap="_mainPageItemTapHandler">
-            <div class="main-page-item-content">
-              <span>[[item.title]]</span>
-            </div>
+      <edu-app-page 
+        id="exerciseStartPage"
+        on-left-tap="_backToExerciseList"
+        on-right-tap="_startTestTapHandler"
+      >
+        <span slot="leftButton">Назад</span>
+        <span slot="rightButton">Начать</span>
+        <span slot="title">Выбран тест</span>
+        <div slot="pageContent" class="pageContent">
+          <div class="title">
+            [[_get(selectedExercise, 'title')]]
           </div>
-        </template>
-      </div>
- -->    </template>
+          <div><span class="link" on-tap="_startTestTapHandler">Начать тест</span></div>
+        </div>
+      </edu-app-page>
+    </template>
+
+    <template is="dom-if" if="[[_isEqual(page, 'exerciseStepPage')]]" restamp>
+      <edu-app-page 
+        id="exerciseStepPage"
+        on-left-tap="_backToExerciseList"
+        focus-target="userAnswerInput"
+      >
+        <span slot="leftButton">Прервать</span>
+        <span slot="title">Тест</span>
+        <div slot="pageContent" class="pageContent">
+          <div id="exerciseStepPageSummary">
+            <div class="title">[[_get(selectedExercise, 'title')]]</div>
+            <edu-app-exercise-error 
+              class="exerciseError"
+              error-count="[[exerciseErrorCount]]"
+            ></edu-app-exercise-error>
+            <div class="exerciseTiming">[[exerciseTimingLabel]]</div>
+            <edu-app-progress-bar class="progressBar" progress="[[exerciseProgress]]"></edu-app-progress-bar>
+          </div>
+          <div id="exerciseStepPageContentWrapper">
+            <span>[[_getCR(exerciseItems.*, selectedExerciseStep, 'title')]]</span>
+            <iron-a11y-keys id="a11y" 
+              target="[[userAnswerInput]]" 
+              keys="enter"
+              on-keys-pressed="_onUserAnswerInputEnter"
+            ></iron-a11y-keys>
+            <iron-input bind-value="{{userAnswer}}" allowed-pattern="[0-9]">
+              <input id="userAnswerInput" 
+                type="number"
+                step="1" 
+              >
+            </iron-input>
+          </div>
+        </div>
+      </edu-app-page>
+    </template>
+
+    <template is="dom-if" 
+      if="[[_isEqual(page, 'exerciseFinishPage')]]" 
+      restamp
+    >
+      <edu-app-page 
+        id="exerciseFinishPage"
+        on-left-tap="_backToExerciseList"
+        on-right-tap="_startTestTapHandler"
+      >
+        <span slot="leftButton">В начало</span>
+        <span slot="rightButton">Повторить</span>
+        <span slot="title">Результат</span>
+        <div slot="pageContent" class="pageContent">
+          <div class="title">[[_get(selectedExercise, 'title')]]</div>
+          <edu-app-exercise-error error-count="[[exerciseErrorCount]]"></edu-app-exercise-error>
+          <div>[[exerciseTimingLabel]]</div>
+          <div>
+            <span class="link" on-tap="_showTestDetails">Посмотреть подробности</span>
+          </div>
+        </div>
+      </edu-app-page>
+    </template>
+
+    <template is="dom-if" if="[[_isEqual(page, 'exerciseDetailsPage')]]" restamp>
+      <edu-app-page 
+        id="exerciseDetailsPage"
+        on-left-tap="_backToFinishPage"
+        scroll-target-acceptor="exerciseDetailsList"
+      >
+        <span slot="leftButton">Назад</span>
+        <span slot="title">Подробности теста</span>
+        <iron-list id="exerciseDetailsList"  
+          slot="pageContent" 
+          items="[[_exerciseDetailsList]]"
+        >
+          <template>
+            <div class="listItemContainer">
+              <div class="listItem">
+                <template is="dom-if" 
+                  if="[[_isEqual(index, '0')]]"
+                  restamp
+                >
+                  <div class="title">
+                    [[_get(selectedExercise, 'title')]]
+                  </div>
+                  <div id="exerciseDetailsSubtitle">
+                    <edu-app-exercise-error
+                      class="exerciseError"
+                      error-count="[[exerciseErrorCount]]"
+                    ></edu-app-exercise-error>
+                    <div class="exerciseTiming">[[exerciseTimingLabel]]</div>
+                  </div>
+                </template>
+                <template is="dom-if" 
+                  if="[[!_isEqual(index, '0')]]"
+                  restamp
+                >
+                  <div class="exerciseItem">
+                    <div class="exerciseItemAnswer">
+                      <span>[[item.title]]</span>
+                      <span 
+                        class$="[[_choose(item.answerIsOk, 'noError', 'error')]]"
+                      >[[item.userAnswer]]</span>
+                    </div>
+                    <div class="exerciseItemTiming">
+                      [[_computeExerciseTimingLabel(item.timing, 'true')]]
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </div>          
+          </template>
+        </iron-list>
+      </edu-app-page>
+    </template>
 
   </template>
-
   <script>
   (function() {
-    /**
-     * @customElement
-     * @polymer
-     */
+    function shuffle(a) { // https://stackoverflow.com/a/6274381
+      for (let i = a.length; i; i--) {
+        let j = Math.floor(Math.random() * i);
+        [a[i - 1], a[j]] = [a[j], a[i - 1]];
+      }
+      return a;
+    }
+    const twentyBase = [
+      [9, 2],
+      [8, 3],
+      [7, 4],
+      [6, 5],
+      [9, 3],
+      [8, 4],
+      [7, 5],
+      [6, 6],
+      [9, 4],
+      [8, 5],
+      [7, 6],
+      [9, 5],
+      [8, 6],
+      [7, 7],
+      [9, 6],
+      [8, 7],
+      [9, 7],
+      [8, 8],
+      [9, 8],
+      [9, 9],
+    ];
+    function getMultiplicationExercise(base) {
+      const key = 'multiplication-' + base;
+      return {
+         [key]: {
+          title: 'Умножение на ' + base,
+          getItems() {
+            function getItem(factor) {
+              return { title: [base, factor].join(' * ') + ' = ', answer: base * factor };
+            }
+            const result = shuffle(_.reduce(_.range(2, 10, 1), (result, factor) => {
+              result.push(getItem(factor));
+              return result;
+            }, []));
+            return result;
+          },
+        },
+      };
+    }
+    function getMultiplicationExercises(bases) {
+      const result = {};
+      _.forEach(bases, base => {
+        Object.assign(result, getMultiplicationExercise(base));
+      });
+      return result;
+    }
+    const superscripts = {
+      '2': '\u00b2',
+      '3': '\u00b3',
+      '4': '\u2074',
+      '5': '\u2075',
+      '6': '\u2076',
+      '7': '\u2077',
+      '8': '\u2078',
+      '9': '\u2079',
+    };
+    const nikiforExercises = Object.assign({}, getMultiplicationExercises([12, 13, 14, 15, 25]), {
+      'squares': {
+        title: 'Квадраты чисел',
+        getItems() {
+          function getItem(base) {
+            return { title: base + '\u00b2' + ' = ', answer: base * base };
+          }
+          const result = shuffle(_.reduce(_.range(2, 16, 1).concat(25), (result, base) => {
+            result.push(getItem(base));
+            return result;
+          }, []));
+          return result;
+        },
+      },
+      'powers': {
+        title: 'Степени чисел',
+        getItems() {
+          function getItem(pair) {
+            return { title: pair[0] + superscripts[pair[1]] + ' = ', answer: Math.pow(...pair)};
+          }
+          const result = shuffle(_.reduce(
+            [
+              [2, 2],
+              [2, 3],
+              [2, 4],
+              [2, 5],
+              [3, 2],
+              [3, 3],
+              [3, 4],
+              [5, 2],
+              [5, 3],
+              [5, 4],
+            ], (result, pair) => {
+            result.push(getItem(pair));
+            return result;
+          }, []));
+          return result;
+        },
+      },
+    });
+    const tikhomirExercises = nikiforExercises;
     const _defs = {
       nikifor: {
         title: 'Никифор',
-        // exercises: [
-        //   'Сложение до 20',
-        //   'Вычитание до 20',
-        //   'Сложение до 100',
-        //   'Вычитание до 100',
-        // ],
+        exercises: nikiforExercises,
       },
       tikhomir: {
         title: 'Тихомир',
-        // exercises: [
-        //   'Сложение до 20',
-        //   'Вычитание до 20',
-        //   'Сложение до 100',
-        //   'Вычитание до 100',
-        // ],
+        exercises: tikhomirExercises,
       },
       miroslava: {
         title: 'Мирослава',
         exercises: {
           'addition-20': {
             title: 'Сложение до 20',
+            getItems() {
+              function getItem(pair) {
+                return { title: pair.join(' + ') + ' = ', answer: pair[0] + pair[1] };
+              }
+              const result = shuffle(_.reduce(twentyBase, (result, pair) => {
+                result.push(getItem(pair));
+                if (pair[0] != pair[1]) {
+                  result.push(getItem(pair.reverse()));
+                }
+                return result;
+              }, []));
+              return result;
+            },
           },
           'subtraction-20': {
             title: 'Вычитание до 20',
+            getItems() {
+              function getItem(pair) {
+                return { title: [pair[0] + pair[1], pair[0]].join(' - ') + ' = ', answer: pair[1] };
+              }
+              const result = shuffle(_.reduce(twentyBase, (result, pair) => {
+                result.push(getItem(pair));
+                if (pair[0] != pair[1]) {
+                  result.push(getItem(pair.reverse()));
+                }
+                return result;
+              }, []));
+              return result;
+            },
           },
-          'addition-100': {
-            title: 'Сложение до 100',
-          },
-          'subtraction-100': {
-            title: 'Вычитание до 100',
-          },
+          // 'addition-100': {
+          //   title: 'Сложение до 100',
+          // },
+          // 'subtraction-100': {
+          //   title: 'Вычитание до 100',
+          // },
         },
       },
     };
     _.forEach(_defs, (def, who) => {
       def.id = who;
+      def.src = Polymer.ResolveUrl.resolveUrl('src/edu-app/assets/' + def.id + '.jpg');
       const exercises = _.get(def, 'exercises');
       _.forEach(exercises, (exercise, id) => {
         exercise.id = id;
       });
     });
-    // function supplyId(target) {
-    //   if (_.isObject(target)) {
-    //     _.forEach(target, (value, key) => {
-    //       value.id = key;
-    //     });
-    //   }
-    // }
-    // const _defsAsArray = _.map(_defs, (item, key) => { item.id = key; return item });
-    class EduApp extends Polymer.GestureEventListeners(Polymer.Element) {
+    class EduApp extends eduApp.commonMixin(Polymer.GestureEventListeners(Polymer.Element)) {
       static get is() { return 'edu-app'; }
       static get properties() {
         return {
+          _defs: {
+            type: Object,
+            value: _defs,
+          },
           route: {
             type: Object,
           },
-          routeData: {
+          whoData: {
             type: Object,
           },
-          routeActive: {
+          whoPartActive: {
             type: Boolean,
           },
-          subrouteData: {
+          exerciseData: {
             type: Object,
           },
-          subrouteActive: {
+          exercisePartActive: {
+            type: Boolean,
+          },
+          exerciseStepData: {
+            type: Object,
+          },
+          exerciseStepPartActive: {
             type: Boolean,
           },
           selectedWho: {
             type: String,
-            computed: '_computeSelected(routeData.*, routeActive)',
+            computed: '_computeSelected(whoData.*, whoPartActive)',
           },
           selectedExercise: {
             type: String,
-            computed: '_computeSelected(subrouteData.*, subrouteActive, selectedWho, "exercises")',
+            computed: '_computeSelected(exerciseData.*, exercisePartActive, selectedWho, "exercises")',
           },
-          tail: {
+          selectedExerciseStep: {
             type: String,
+            computed: '_computeExerciseStep(exerciseStepData.*, exerciseStepPartActive)',
+          },
+          exerciseProgress: {
+            type: Number,
+            computed: '_computeExerciseProgress(selectedExerciseStep, exerciseItems.*)',
+          },
+          whoTail: {
+            type: String,
+          },
+          exerciseTail: {
+            type: String,
+          },
+          exerciseStepTail: {
+            type: String,
+          },
+          exerciseErrorCount: {
+            type: Number,
+            value: 0,
+          },
+          exerciseItemTiming: {
+            type: Number,
+            value: 0,
+          },
+          exerciseTiming: {
+            type: Number,
+            value: 0,
+          },
+          exerciseTimingLabel: {
+            type: String,
+            computed: '_computeExerciseTimingLabel(exerciseTiming)',
           },
           page: {
             type: String,
-            computed: '_computePage(selectedWho, selectedExercise)',
+            computed: '_computePage(selectedWho, selectedExercise, selectedExerciseStep)',
           },
-          _defs: {
-            type: Object,
-            value: _defs,
+          exerciseItems: {
+            type: Array,
+            value: () => [],
+          },
+          exerciseDetails: {
+            type: Array,
+            value: () => [],
+          },
+          _exerciseDetailsList: {
+            type: Array,
+            computed: '_computeExerciseDetailsList(exerciseDetails.*)',
+          },
+          exerciseTimer: {
+            type: Number,
+            value: 0,
+          },
+          userAnswer: {
+            type: String,
+          },
+          userAnswerInput: {
+            type: HTMLElement,
+            computed: '_computeUserAnswerInput()',
           },
         };
       }
@@ -329,26 +981,80 @@
         return [
         ];
       }
-      get _defs() {
-        return _defs;
-      }
-      _computePage(selectedWho, selectedExercise) {
-        const result = 
-          _.isNil(selectedWho) ? 'mainPage' :
-          _.isNil(selectedExercise) ? 'exerciseListPage' : 
-          'exerciseStartPage'
-        ;
-        console.log({result, selectedWho, selectedExercise})
+      _computeExerciseProgress(selectedExerciseStep, exerciseItemsChangeRecord) {
+        const result = parseInt(selectedExerciseStep, 10) / exerciseItemsChangeRecord.base.length;
         return result;
       }
-      // _getDef(...paths) {
-      //   const path = paths.join('.');
-      //   let result = path ? _.get(this._defs, path) : this._defs;
-      //   if (_.isObject(result)) {
-      //     result = _.map(result, (item, key) => { item.id = key; return item });
-      //   }
-      //   return result;
-      // }
+      _computeExerciseDetailsList(exerciseDetailsChangeRecord) {
+        return [{}].concat(exerciseDetailsChangeRecord.base);
+      }
+      _computeExerciseTimingLabel(exerciseTiming, floatSeconds = false) {
+        const sec_num = exerciseTiming / 1000;
+        const hours = Math.floor(sec_num / 3600);
+        const minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+        let seconds = sec_num - (hours * 3600) - (minutes * 60);
+        if (!floatSeconds) {
+          seconds = Math.round(seconds);
+        } else {
+          seconds = seconds.toFixed(1);
+        }
+        const result = [hours, minutes, seconds].map(item => item >= 10 ? item : '0' + item).join(':');
+        return result;
+      }
+      _onUserAnswerInputEnter(event) {
+        if (this.userAnswer) {
+          clearTimeout(this.exerciseTimer);
+          const timing = performance.now() - this.exerciseStartTime;
+          this.exerciseTiming += timing;
+          this.exerciseItemTiming += timing;
+          const answerIsOk = this.userAnswer == this.exerciseItems[this.selectedExerciseStep].answer;
+          this.push('exerciseDetails', Object.assign({}, this.exerciseItems[this.selectedExerciseStep], {answerIsOk, userAnswer: this.userAnswer, timing: this.exerciseItemTiming}));
+          if (answerIsOk) {
+            this._nextExercise();
+          } else {
+            this.exerciseErrorCount += 1;
+            this._startExerciseStep();
+            this.push('exerciseItems', ...this.splice('exerciseItems', this.selectedExerciseStep, 1));
+          }
+          this.userAnswer = '';
+        }
+      }
+      _computeUserAnswerInput() {
+        const result = this.$.userAnswerInput;
+        return result;
+      }
+      _startExerciseStep() {
+        this.exerciseStartTime = performance.now();
+        this.exerciseItemTiming = 0;
+        this._setExerciseTimer();
+      }
+      _setExerciseTimer() {
+        clearTimeout(this.exerciseTimer);
+        this.exerciseTimer = setTimeout(() => { 
+          this.exerciseStartTime = performance.now();
+          this.exerciseTiming += 1000;
+          this.exerciseItemTiming += 1000;
+          this._setExerciseTimer();
+        }, 1000);
+      }
+      _computePage(selectedWho, selectedExercise, selectedExerciseStep) {
+        const result = 
+          !selectedWho ? 'mainPage' :
+          !selectedExercise ? 'exerciseListPage' : 
+          !selectedExerciseStep ? 'exerciseStartPage' : 
+          'finish' == selectedExerciseStep ? 'exerciseFinishPage' : 
+          'details' == selectedExerciseStep ? 'exerciseDetailsPage' : 
+          'exerciseStepPage'
+        ;
+        if ('exerciseStepPage' == result) {
+          this._startExerciseStep();
+        }
+        return result;
+      }
+      _getCR(from, ...paths) {
+        const result = this._get(from.base, ...paths);
+        return result;
+      }
       _get(from, ...paths) {
         const path = paths.join('.');
         let result = path ? _.get(from, path) : from;
@@ -357,23 +1063,15 @@
         }
         return result;
       }
-      ready() {
-        super.ready();
-        this.addEventListener('dom-change', event => this._domChangeHandler(event));
-      }
-      _domChangeHandler(event) {
-        const exerciseList = this.root.querySelector('#exerciseList');
-        if (exerciseList) {
-          const exercizeListPageHeader = this.root.querySelector('#exercizeListPageHeader');
-          exerciseList.scrollTarget = exercizeListPageHeader.scrollTarget;
-        }
-      }
-      _computeSelected(routeDataChangeRecord, routeActive, selectedBase = undefined, ...paths) {
+      _computeSelected(routeDataChangeRecord, routePartActive, selectedBase = undefined, ...paths) {
         if (undefined === selectedBase) {
           selectedBase = this._defs;
         }
-        const result = !routeActive ? null : _.get(selectedBase, paths.concat(routeDataChangeRecord.base.part).join('.'));
-        console.log({'': '_computeSelected', result, selectedBase, routeActive, routeDataChangeRecord, paths});
+        const result = !routePartActive ? null : _.get(selectedBase, paths.concat(routeDataChangeRecord.base.part).join('.'));
+        return result;
+      }
+      _computeExerciseStep(exerciseStepDataChangeRecord, exerciseStepPartActive) {
+        const result = !exerciseStepPartActive ? null : exerciseStepDataChangeRecord.base.part;
         return result;
       }
       _mainPageItemTapHandler(event) {
@@ -381,26 +1079,38 @@
         window.history.pushState({}, null, '#' + who);
         window.dispatchEvent(new CustomEvent('location-changed'));
       }
+      _backToExerciseList(event) {
+        window.history.pushState({}, null, '#' + this.selectedWho.id);
+        window.dispatchEvent(new CustomEvent('location-changed'));
+      }
       _exerciseListItemTapHandler(event) {
         const exercise = event.currentTarget.dataset.id;
-        console.log(this.selectedWho)
         window.history.pushState({}, null, '#' + this.selectedWho.id + '/' + exercise);
+        window.dispatchEvent(new CustomEvent('location-changed'));
+      }
+      _showTestDetails(event) {
+        window.history.pushState({}, null, '#' + this.selectedWho.id + '/' + this.selectedExercise.id + '/details');
+        window.dispatchEvent(new CustomEvent('location-changed'));
+      }
+      _startTestTapHandler() {
+        this.exerciseItems = this.selectedExercise.getItems();
+        this.exerciseErrorCount = 0;
+        this.exerciseTiming = 0;
+        this.exerciseDetails = [];
+        window.history.pushState({}, null, '#' + this.selectedWho.id + '/' + this.selectedExercise.id + '/' + 0);
+        window.dispatchEvent(new CustomEvent('location-changed'));
+      }
+      _nextExercise() {
+        window.history.pushState({}, null, '#' + this.selectedWho.id + '/' + this.selectedExercise.id + '/' + (this.selectedExerciseStep >= this.exerciseItems.length - 1 ? 'finish' : parseInt(this.selectedExerciseStep, 10) + 1));
+        window.dispatchEvent(new CustomEvent('location-changed'));
+      }
+      _backToFinishPage() {
+        window.history.pushState({}, null, '#' + this.selectedWho.id + '/' + this.selectedExercise.id + '/finish');
         window.dispatchEvent(new CustomEvent('location-changed'));
       }
       _backToMainPage(event) {
         window.history.pushState({}, null, '#');
         window.dispatchEvent(new CustomEvent('location-changed'));
-      }
-      _isNull(item) {
-        return null === item;
-      }
-      _isEqual(a, b) {
-        const result = a == b;
-        console.log({'': '_isEqual', result, a, b});
-        return result;
-      }
-      _toJson(item) {
-        return JSON.stringify(item);
       }
     }
     window.customElements.define(EduApp.is, EduApp);
