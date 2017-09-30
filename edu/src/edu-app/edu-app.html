@@ -44,7 +44,7 @@
       }
 
       /* http://blog.pamelafox.org/2012/05/triggering-numeric-keyboards-with-html5.html */
-      input::-webkit-outer-spin-button, 
+      input::-webkit-outer-spin-button,
       input::-webkit-inner-spin-button {
           -webkit-appearance: none;
           margin: 0;
@@ -426,7 +426,7 @@
       .exerciseItemTiming {
         float: right;
       }
-      
+
       #mainPage {
         height: 100%;
         width: 100%;
@@ -485,7 +485,7 @@
 
       #exerciseDetailsList .listItemContainer:first-of-type .listItem{
         padding-top: 1em;
-        padding-bottom: 1em; 
+        padding-bottom: 1em;
       }
       #exerciseStartPage .title {
         margin-bottom: 1em;
@@ -557,15 +557,15 @@
     </template>
 
     <template is="dom-if" if="[[_isEqual(page, 'exerciseListPage')]]" restamp>
-      <edu-app-page 
+      <edu-app-page
         id="exerciseListPage"
         on-left-tap="_backToMainPage"
         scroll-target-acceptor="exerciseList"
       >
         <span slot="leftButton">Назад</span>
         <span slot="title">[[_get(selectedWho, 'title')]]</span>
-        <iron-list id="exerciseList"  
-          slot="pageContent" 
+        <iron-list id="exerciseList"
+          slot="pageContent"
           items="[[_get(selectedWho, 'exercises')]]"
         >
           <template>
@@ -580,7 +580,7 @@
     </template>
 
     <template is="dom-if" if="[[_isEqual(page, 'exerciseStartPage')]]" restamp>
-      <edu-app-page 
+      <edu-app-page
         id="exerciseStartPage"
         on-left-tap="_backToExerciseList"
         on-right-tap="_startTestTapHandler"
@@ -598,7 +598,7 @@
     </template>
 
     <template is="dom-if" if="[[_isEqual(page, 'exerciseStepPage')]]" restamp>
-      <edu-app-page 
+      <edu-app-page
         id="exerciseStepPage"
         on-left-tap="_backToExerciseList"
         focus-target="userAnswerInput"
@@ -608,7 +608,7 @@
         <div slot="pageContent" class="pageContent">
           <div id="exerciseStepPageSummary">
             <div class="title">[[_get(selectedExercise, 'title')]]</div>
-            <edu-app-exercise-error 
+            <edu-app-exercise-error
               class="exerciseError"
               error-count="[[exerciseErrorCount]]"
             ></edu-app-exercise-error>
@@ -617,15 +617,15 @@
           </div>
           <div id="exerciseStepPageContentWrapper">
             <span>[[_getCR(exerciseItems.*, selectedExerciseStep, 'title')]]</span>
-            <iron-a11y-keys id="a11y" 
-              target="[[userAnswerInput]]" 
+            <iron-a11y-keys id="a11y"
+              target="[[userAnswerInput]]"
               keys="enter"
               on-keys-pressed="_onUserAnswerInputEnter"
             ></iron-a11y-keys>
             <iron-input bind-value="{{userAnswer}}" allowed-pattern="[0-9]">
-              <input id="userAnswerInput" 
+              <input id="userAnswerInput"
                 type="number"
-                step="1" 
+                step="1"
               >
             </iron-input>
           </div>
@@ -633,11 +633,11 @@
       </edu-app-page>
     </template>
 
-    <template is="dom-if" 
-      if="[[_isEqual(page, 'exerciseFinishPage')]]" 
+    <template is="dom-if"
+      if="[[_isEqual(page, 'exerciseFinishPage')]]"
       restamp
     >
-      <edu-app-page 
+      <edu-app-page
         id="exerciseFinishPage"
         on-left-tap="_backToExerciseList"
         on-right-tap="_startTestTapHandler"
@@ -657,21 +657,21 @@
     </template>
 
     <template is="dom-if" if="[[_isEqual(page, 'exerciseDetailsPage')]]" restamp>
-      <edu-app-page 
+      <edu-app-page
         id="exerciseDetailsPage"
         on-left-tap="_backToFinishPage"
         scroll-target-acceptor="exerciseDetailsList"
       >
         <span slot="leftButton">Назад</span>
         <span slot="title">Подробности теста</span>
-        <iron-list id="exerciseDetailsList"  
-          slot="pageContent" 
+        <iron-list id="exerciseDetailsList"
+          slot="pageContent"
           items="[[_exerciseDetailsList]]"
         >
           <template>
             <div class="listItemContainer">
               <div class="listItem">
-                <template is="dom-if" 
+                <template is="dom-if"
                   if="[[_isEqual(index, '0')]]"
                   restamp
                 >
@@ -686,14 +686,14 @@
                     <div class="exerciseTiming">[[exerciseTimingLabel]]</div>
                   </div>
                 </template>
-                <template is="dom-if" 
+                <template is="dom-if"
                   if="[[!_isEqual(index, '0')]]"
                   restamp
                 >
                   <div class="exerciseItem">
                     <div class="exerciseItemAnswer">
                       <span>[[item.title]]</span>
-                      <span 
+                      <span
                         class$="[[_choose(item.answerIsOk, 'noError', 'error')]]"
                       >[[item.userAnswer]]</span>
                     </div>
@@ -703,7 +703,7 @@
                   </div>
                 </template>
               </div>
-            </div>          
+            </div>
           </template>
         </iron-list>
       </edu-app-page>
@@ -770,6 +770,18 @@
       [3, 5],
       [4, 4],
     ]);
+    const roundBase =  [
+      [0, 0],
+      [0, 1],
+      [0, 2],
+      [0, 3],
+      [0, 4],
+      [0, 5],
+      [0, 6],
+      [0, 7],
+      [0, 8],
+      [0, 9],
+    ];
     function getMultiplicationExercise(base) {
       const key = 'multiplication-' + base;
       return {
@@ -848,11 +860,11 @@
     const hunredExercises = {
       'addition-100': {
         title: 'Сложение до 100',
-        getItems: () => getHundredPairs(shuffle(twentyBase), shuffle(hundredBase).concat(shuffle(hundredBase))).map(getAdditionItem),
+        getItems: () => getHundredPairs(twentyBase, hundredBase).map(getAdditionItem),
       },
       'subtraction-100': {
         title: 'Вычитание до 100',
-        getItems: () => getHundredPairs(shuffle(twentyBase), shuffle(hundredBase).concat(shuffle(hundredBase))).map(getSubtractionItem),
+        getItems: () => getHundredPairs(twentyBase, hundredBase).map(getSubtractionItem),
       },
     };
     const miroslavaExercises = Object.assign({
@@ -864,6 +876,10 @@
         title: 'Вычитание до 20',
         getItems: () => shuffle(twentyBase).map(getSubtractionItem),
       },
+      'round-subtraction-100': {
+        title: 'Вычитание круглых чисел до 100',
+        getItems: () => getHundredPairs(roundBase, hundredBase).map(getSubtractionItem),
+      },
     }, hunredExercises);
     const tikhomirExercises = Object.assign({}, hunredExercises, nikiforExercises);
     function getAdditionItem(pair) {
@@ -873,6 +889,13 @@
       return { title: [_.sum(pair), pair[0]].join(' - ') + ' = ', answer: pair[1] };
     }
     function getHundredPairs(twentyBase, hundredBase) {
+      if (twentyBase.length >= hundredBase.length) {
+        twentyBase = shuffle(twentyBase);
+        hundredBase = shuffle(hundredBase).concat(shuffle(hundredBase)).slice(0, twentyBase.length);
+      } else {
+        hundredBase = shuffle(hundredBase);
+        twentyBase = shuffle(twentyBase).concat(shuffle(twentyBase)).slice(0, hundredBase.length);
+      }
       return twentyBase.map(
         pair => _
           .zip(pair, hundredBase.shift())
@@ -1053,7 +1076,7 @@
       }
       _setExerciseTimer() {
         clearTimeout(this.exerciseTimer);
-        this.exerciseTimer = setTimeout(() => { 
+        this.exerciseTimer = setTimeout(() => {
           this.exerciseStartTime = performance.now();
           this.exerciseTiming += 1000;
           this.exerciseItemTiming += 1000;
@@ -1061,12 +1084,12 @@
         }, 1000);
       }
       _computePage(selectedWho, selectedExercise, selectedExerciseStep) {
-        const result = 
+        const result =
           !selectedWho ? 'mainPage' :
-          !selectedExercise ? 'exerciseListPage' : 
-          !selectedExerciseStep ? 'exerciseStartPage' : 
-          'finish' == selectedExerciseStep ? 'exerciseFinishPage' : 
-          'details' == selectedExerciseStep ? 'exerciseDetailsPage' : 
+          !selectedExercise ? 'exerciseListPage' :
+          !selectedExerciseStep ? 'exerciseStartPage' :
+          'finish' == selectedExerciseStep ? 'exerciseFinishPage' :
+          'details' == selectedExerciseStep ? 'exerciseDetailsPage' :
           'exerciseStepPage'
         ;
         if ('exerciseStepPage' == result) {
