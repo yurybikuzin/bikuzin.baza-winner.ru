@@ -50,8 +50,18 @@
     </style>
     <script>
       document.addEventListener('DOMContentLoaded', function(event) {
-        let content = '<div></div>';
-        document.getElementById('horizontal-lines').innerHTML = content;
+        let content1 = ''
+        for ($n = 0; $n < 20; $n++)
+        {
+          content1 = content1 + '<div></div>';
+        }
+        document.getElementById('horizontal-lines').innerHTML = content1;
+        let content2 = ''
+        for ($n = 0; $n < 10; $n++)
+        {
+          content2 = content2 + '<div></div>';
+        }
+        document.getElementById('vertical-lines').innerHTML = content2;
         // цикл: mdn for
         // конкатенация строк: mdn concatenate string
         // commit:
