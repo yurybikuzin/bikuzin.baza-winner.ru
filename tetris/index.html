@@ -53,15 +53,18 @@
         'use strict';
         document.addEventListener('DOMContentLoaded', function(event) {
 
-          let content = '';
-          for (let i = 0; i < 20; i++)
+          var content;
+          var i;
+
+          content = '';
+          for (i = 0; i < 20; i++)
           {
             content = content + '<div></div>';
           }
           document.getElementById('horizontal-lines').innerHTML = content;
 
           content = '';
-          for (let i = 0; i < 10; i++)
+          for (i = 0; i < 10; i++)
           {
             content = content + '<div></div>';
           }
