@@ -49,46 +49,40 @@
       }
     </style>
     <script>
+      // == Шпаргалка
+      // commit:
+      //   CTRL+SHIFT+P
+      //   Git:Status
+      //   C
+      //   ввести комментарий к коммиту
+      //   CTRL+W
+      // git push: "вытолкнуть" свои измения на сервер
+      //   Win+R
+      //   cmd.exe
+      //   cd Documents\bikuzin.baza-winner.ru
+      //   git push
+      // git pull: "подтянуть" чужие изменения с сервера
+      //   Win+R
+      //   cmd.exe
+      //   cd Documents\bikuzin.baza-winner.ru
+      //   git pull
       (function() {
         'use strict';
+
+        function drawLines(id, count) {
+          let content = '';
+          for (let i = 0; i < count; i++)
+          {
+            content = content + '<div></div>';
+          }
+          document.getElementById(id).innerHTML = content;
+        }
+
         document.addEventListener('DOMContentLoaded', function(event) {
-
-          var content;
-          var i;
-
-          content = '';
-          for (i = 0; i < 20; i++)
-          {
-            content = content + '<div></div>';
-          }
-          document.getElementById('horizontal-lines').innerHTML = content;
-
-          content = '';
-          for (i = 0; i < 10; i++)
-          {
-            content = content + '<div></div>';
-          }
-          document.getElementById('vertical-lines').innerHTML = content;
-
-          // цикл: mdn for
-          // конкатенация строк: mdn concatenate string
-          // commit:
-          //   CTRL+SHIFT+P
-          //   Git:Status
-          //   C
-          //   ввести комментарий к коммиту
-          //   CTRL+W
-          // git push: "вытолкнуть" свои измения на сервер
-          //   Win+R
-          //   cmd.exe
-          //   cd Documents\bikuzin.baza-winner.ru
-          //   git push
-          // git pull: "подтянуть" чужие изменения с сервера
-          //   Win+R
-          //   cmd.exe
-          //   cd Documents\bikuzin.baza-winner.ru
-          //   git pull
+          drawLines('horizontal-lines', 20);
+          drawLines('vertical-lines', 10);
         });
+
       })();
     </script>
   </head>
