@@ -70,12 +70,7 @@
         'use strict';
 
         function drawLines(id, count) {
-          let content = '';
-          for (let i = 0; i < count; i++)
-          {
-            content = content + '<div></div>';
-          }
-          document.getElementById(id).innerHTML = content;
+          document.getElementById(id).innerHTML = '<div></div>'.repeat(count);
         }
 
         document.addEventListener('DOMContentLoaded', function(event) {
