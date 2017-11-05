@@ -186,45 +186,45 @@
         const figuresDef = {
           'I': {width: 1, height: 4, hasInner: false, matrix: {
             0: '1, 0, 0, 1, 0, 0',
-            90: '0, 1, -1, 0, 100, 1.5',
-            180: '-1, 0, 0, -1, 66, 102',
-            270: '0, -1, 1, 0, -35, 67.5',
+            90: '0, 1.01, -.96, 0, 17, -50',
+            180: '-.98, 0, 0, -.99, 0, 0',
+            270: '0, -.99, .96, 0, 16.5, -50.5',
           }},
           'J': {width: 2, height: 3, hasInner: true, matrix: {
             0: '1, 0, 0, 1, 0, 0',
-            90: '0, 1, -1, 0, 100, 1.5',
-            180: '-1, 0, 0, -1, 66, 102',
-            270: '0, -1, 1, 0, -35, 67.5',
+            90: '0, 1.01, -.96, 0, 0, 0',
+            180: '-1, 0, 0, -1, 0, 0',
+            270: '0, -.99, .96, 0, 0, 0',
           }},
           'L': {width: 2, height: 3, hasInner: true, matrix: {
             0: '1, 0, 0, 1, 0, 0',
-            90: '0, 1, -1, 0, 100, 1.5',
-            180: '-1, 0, 0, -1, 66, 102',
-            270: '0, -1, 1, 0, -35, 67.5',
+            90: '0, 1.01, -.96, 0, 0, 0',
+            180: '-1, 0, 0, -1, 0, 0',
+            270: '0, -.99, .96, 0, 0, 0',
           }},
           'O': {width: 2, height: 2, hasInner: false, matrix: {
             0: '1, 0, 0, 1, 0, 0',
-            90: '0, 1, -1, 0, 100, 1.5',
-            180: '-1, 0, 0, -1, 66, 102',
-            270: '0, -1, 1, 0, -35, 67.5',
+            90: '0, 1.01, -.96, 0, 0, 0',
+            180: '-.98, 0, 0, -.99, 0, 0',
+            270: '0, -.99, .96, 0, 0, 0',
           }},
           'S': {width: 3, height: 2, hasInner: true, matrix: {
             0: '1, 0, 0, 1, 0, 0',
-            90: '0, 1, -1, 0, 100, 1.5',
-            180: '-1, 0, 0, -1, 66, 102',
-            270: '0, -1, 1, 0, -35, 67.5',
+            90: '0, 1.01, -.96, 0, 0, 0',
+            180: '-.98, 0, 0, -.99, 0, 0',
+            270: '0, -.99, .96, 0, 0, 0',
           }},
           'T': {width: 2, height: 3, hasInner: true, matrix: {
             0: '1, 0, 0, 1, 0, 0',
-            90: '0, 1, -1, 0, 100, 1.5',
-            180: '-1, 0, 0, -1, 66, 102',
-            270: '0, -1, 1, 0, -35, 67.5',
+            90: '0, 1.01, -.96, 0, 0, 0',
+            180: '-.98, 0, 0, -.99, 0, 0',
+            270: '0, -.99, .96, 0, 0, 0',
           }},
           'Z': {width: 3, height: 2, hasInner: true, matrix: {
             0: '1, 0, 0, 1, 0, 0',
-            90: '0, 1, -1, 0, 100, 1.5',
-            180: '-1, 0, 0, -1, 66, 102',
-            270: '0, -1, 1, 0, -35, 67.5',
+            90: '0, 1.01, -.96, 0, 0, 0',
+            180: '-.98, 0, 0, -.99, 0, 0',
+            270: '0, -.99, .96, 0, 0, 0',
           }},
         };
 
@@ -238,7 +238,7 @@
             result.innerHTML = '<div></div>'.repeat(2);
           }
           const left = 'I' == letter ? '50%' : '40%';
-          result.style = 'top: 0; left: ' + left;
+          result.style = 'top: .05px; left: ' + left;
           return result;
         }
         document.addEventListener('DOMContentLoaded', function(event) {
@@ -246,6 +246,11 @@
           drawLines('vertical-lines', 10);
         });
         let currentFigure, currentLetter, currentRotate;
+        function applyCurrentRotate() {
+          const matrix = figuresDef[currentLetter].matrix[currentRotate];
+          console.log(matrix)
+          currentFigure.style.transform = `matrix(${matrix})`;
+        }
         document.addEventListener('keydown', function(event) {
           let letter; 
           if (event.code.startsWith('Key') && 4 == event.code.length) letter = event.code[3];
@@ -254,20 +259,21 @@
               document.getElementById('glass').removeChild(currentFigure);
             }
             currentFigure = createFigure(event.code[3]);
-            currentFigure.style.transformOrigin = '0 0';
+            document.getElementById('glass').appendChild(currentFigure);
+            currentFigure.style.transformOrigin = '50 50';
             currentLetter = letter;
             currentRotate = 0;
-            document.getElementById('glass').appendChild(currentFigure);
+            applyCurrentRotate();
           } else if (currentFigure) {
             const currentLeft = parseInt(currentFigure.style.left);
+            const currentRigth = currentLeft + figuresDef[currentLetter].width * 10;
             if ('ArrowLeft' == event.code && currentLeft > 0) {
               currentFigure.style.left = (currentLeft - 10) + '%';
-            } else if ('ArrowRight' == event.code && currentLeft + figuresDef[currentLetter].width * 10 < 100) {
+            } else if ('ArrowRight' == event.code && currentRigth < 100) {
               currentFigure.style.left = (currentLeft + 10) + '%';
             } else if ('ArrowUp' == event.code || 'ArrowDown' == event.code) {
-              currentRotate = (360 + currentRotate + ('ArrowUp' == event.code ? -90 : 90)) % 360;
-              const matrix = figuresDef[currentLetter].matrix[currentRotate];
-              currentFigure.style.transform = `matrix(${matrix})`;
+              currentRotate = (360 + currentRotate + ('ArrowUp' == event.code ? 90 : -90)) % 360;
+              applyCurrentRotate();
             }
           }
         });
