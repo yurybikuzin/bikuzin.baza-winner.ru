@@ -18,6 +18,7 @@
         border-right: 5px red solid;
         border-bottom: 5px red solid;
         box-sizing: border-box;
+        position: relative;
       }
       #grid {
         height: 100%;
@@ -47,6 +48,120 @@
       #vertical-lines div:not(:first-child) {
         border-left: 1px solid gray;
       }
+
+      .figure {
+        position: absolute;
+      }
+      .figure div {
+        position: absolute;
+      }
+
+      .I {
+        width: 10%;
+        height: 20%;
+        background-color: lightblue;
+      }
+
+      .J {
+        width: 20%;
+        height: 15%;
+      }
+        .J div {
+          width: 50%;
+          height: 100%;
+          background-color: blue;
+        }
+        .J div:first-child {
+          top: 0;
+          right: 0;
+          height: 100%;
+        }
+        .J div:last-child {
+          bottom: 0;
+          left: 0;
+          height: 33%;
+        }
+
+      .L {
+        height: 15%;
+        width: 20%;
+      }
+        .L div {
+          width: 50%;
+          background-color: orange;
+        }
+        .L div:first-child {
+          top: 0;
+          left: 0;
+          height: 100%;
+        }
+        .L div:last-child {
+          bottom: 0;
+          right: 0;
+          height: 33%;
+        }
+
+      .O {
+        height: 10%;
+        background-color: yellow;
+        width: 20%;
+      }
+
+      .S {
+        height: 10%;
+        width: 30%;
+      }
+        .S div {
+          width: 67%;
+          height: 50%;
+          background-color: green;
+        }
+        .S div:first-child {
+          top: 0;
+          right: 0;
+        }
+        .S div:last-child {
+          bottom: 0;
+          left: 0;
+        }
+
+      .T {
+        height: 10%;
+        width: 30%;
+      }
+        .T div {
+          height: 50%;
+          background-color: purple;
+        }
+        .T div:first-child {
+          top: 0;
+          right: 33%;
+          width: 33%;
+        }
+        .T div:last-child {
+          bottom: 0;
+          left: 0;
+          width: 100%;
+        }
+
+      .Z {
+        height: 10%;
+        width: 30%;
+      }
+        .Z div {
+          width: 67%;
+          height: 50%;
+          background-color: red;
+        }
+        .Z div:first-child {
+          top: 0;
+          left: 0;
+        }
+        .Z div:last-child {
+          bottom: 0;
+          right: 0;
+        }
+
     </style>
     <script>
       // == Шпаргалка
@@ -68,16 +183,94 @@
       //   git pull
       (function() {
         'use strict';
+        const figuresDef = {
+          'I': {width: 1, height: 4, hasInner: false, matrix: {
+            0: '1, 0, 0, 1, 0, 0',
+            90: '0, 1, -1, 0, 100, 1.5',
+            180: '-1, 0, 0, -1, 66, 102',
+            270: '0, -1, 1, 0, -35, 67.5',
+          }},
+          'J': {width: 2, height: 3, hasInner: true, matrix: {
+            0: '1, 0, 0, 1, 0, 0',
+            90: '0, 1, -1, 0, 100, 1.5',
+            180: '-1, 0, 0, -1, 66, 102',
+            270: '0, -1, 1, 0, -35, 67.5',
+          }},
+          'L': {width: 2, height: 3, hasInner: true, matrix: {
+            0: '1, 0, 0, 1, 0, 0',
+            90: '0, 1, -1, 0, 100, 1.5',
+            180: '-1, 0, 0, -1, 66, 102',
+            270: '0, -1, 1, 0, -35, 67.5',
+          }},
+          'O': {width: 2, height: 2, hasInner: false, matrix: {
+            0: '1, 0, 0, 1, 0, 0',
+            90: '0, 1, -1, 0, 100, 1.5',
+            180: '-1, 0, 0, -1, 66, 102',
+            270: '0, -1, 1, 0, -35, 67.5',
+          }},
+          'S': {width: 3, height: 2, hasInner: true, matrix: {
+            0: '1, 0, 0, 1, 0, 0',
+            90: '0, 1, -1, 0, 100, 1.5',
+            180: '-1, 0, 0, -1, 66, 102',
+            270: '0, -1, 1, 0, -35, 67.5',
+          }},
+          'T': {width: 2, height: 3, hasInner: true, matrix: {
+            0: '1, 0, 0, 1, 0, 0',
+            90: '0, 1, -1, 0, 100, 1.5',
+            180: '-1, 0, 0, -1, 66, 102',
+            270: '0, -1, 1, 0, -35, 67.5',
+          }},
+          'Z': {width: 3, height: 2, hasInner: true, matrix: {
+            0: '1, 0, 0, 1, 0, 0',
+            90: '0, 1, -1, 0, 100, 1.5',
+            180: '-1, 0, 0, -1, 66, 102',
+            270: '0, -1, 1, 0, -35, 67.5',
+          }},
+        };
 
         function drawLines(id, count) {
           document.getElementById(id).innerHTML = '<div></div>'.repeat(count);
         }
-
+        function createFigure(letter) {
+          const result = document.createElement('div');
+          result.className = 'figure ' + letter;
+          if (figuresDef[letter].hasInner) {
+            result.innerHTML = '<div></div>'.repeat(2);
+          }
+          const left = 'I' == letter ? '50%' : '40%';
+          result.style = 'top: 0; left: ' + left;
+          return result;
+        }
         document.addEventListener('DOMContentLoaded', function(event) {
           drawLines('horizontal-lines', 20);
           drawLines('vertical-lines', 10);
         });
-
+        let currentFigure, currentLetter, currentRotate;
+        document.addEventListener('keydown', function(event) {
+          let letter; 
+          if (event.code.startsWith('Key') && 4 == event.code.length) letter = event.code[3];
+          if (letter && figuresDef[letter]) {
+            if (currentFigure) {
+              document.getElementById('glass').removeChild(currentFigure);
+            }
+            currentFigure = createFigure(event.code[3]);
+            currentFigure.style.transformOrigin = '0 0';
+            currentLetter = letter;
+            currentRotate = 0;
+            document.getElementById('glass').appendChild(currentFigure);
+          } else if (currentFigure) {
+            const currentLeft = parseInt(currentFigure.style.left);
+            if ('ArrowLeft' == event.code && currentLeft > 0) {
+              currentFigure.style.left = (currentLeft - 10) + '%';
+            } else if ('ArrowRight' == event.code && currentLeft + figuresDef[currentLetter].width * 10 < 100) {
+              currentFigure.style.left = (currentLeft + 10) + '%';
+            } else if ('ArrowUp' == event.code || 'ArrowDown' == event.code) {
+              currentRotate = (360 + currentRotate + ('ArrowUp' == event.code ? -90 : 90)) % 360;
+              const matrix = figuresDef[currentLetter].matrix[currentRotate];
+              currentFigure.style.transform = `matrix(${matrix})`;
+            }
+          }
+        });
       })();
     </script>
   </head>
