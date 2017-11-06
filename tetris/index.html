@@ -52,19 +52,27 @@
       #figure {
         position: absolute;
         right: 4.5vh;
-        top: calc(50% - 2 * 4.5vh - 2.5px);
+        top: calc(50% - 2 * 4.5vh);
       }
 
       .figure {
-        width: calc(18vh - 1.4px);
-        height: calc(18vh - 1.4px);
-        border: 1px solid red;
-      }
-      .figure .grid {
-        height: 100%;
-        width: 100%;
+        width: 18vh;
+        height: 18vh;
         position: relative;
       }
+      .figure .content-wrapper {
+        width: calc(100% + 1.1px);
+        height: calc(100% + 2.2px);
+        position: absolute;
+        left: -0.2px;
+        top: -2.9px;
+      }
+        .figure .grid {
+          height: 100%;
+          width: 100%;
+          position: relative;
+        }
+
         .figure .grid > * {
           height: 100%;
           width: 100%;
@@ -83,10 +91,22 @@
           height: 25%;
           border-bottom: 1px solid gray;
         }
+        .figure .grid .horizontal-lines div:first-child {
+          border-top: 1px solid red;
+        }
+        .figure .grid .horizontal-lines div:last-child {
+          border-bottom: 1px solid red;
+        }
         .figure .grid .vertical-lines div {
           width: 25%;
           height: 100%;
           border-right: 1px solid gray;
+        }
+        .figure .grid .vertical-lines div:first-child {
+          border-left: 1px solid red;
+        }
+        .figure .grid .vertical-lines div:last-child {
+          border-right: 1px solid red;
         }
         .figure .content {
           position: absolute;
@@ -111,18 +131,18 @@
 
       .figure[letter="I"][rotate="0"] .content div,
       .figure[letter="I"][rotate="180"] .content div {
-        top: 0;
+        top: 0.5px;
         left: 25%;
-        width: calc(25% - .5px);
-        height: 100%;
+        width: calc(25% - 1px);
+        height: calc(100% - 1px);
       }
 
       .figure[letter="I"][rotate="90"] .content div, 
       .figure[letter="I"][rotate="270"] .content div {
         top: 25%;
-        left: 0;
-        width: 100%;
-        height: calc(25% - .5px);
+        left: 1px;
+        width: calc(100% - 2px);
+        height: calc(25% - 1px);
       }
 
       .figure[letter="J"] .content div {
@@ -130,7 +150,7 @@
       }
         .figure[letter="J"][rotate="0"] .content div:first-child {
           left: 50%;
-          top: 0;
+          top: .5px;
           width: calc(25% - 1px);
           height: calc(75% - 1px);
         }
@@ -138,44 +158,45 @@
           left: 25%;
           top: 50%;
           width: 25%;
-          height: calc(25% - 1px);
+          height: calc(25% - .5px);
         }
         .figure[letter="J"][rotate="90"] .content div:first-child {
           left: 25%;
           top: 25%;
-          width: 75%;
-          height: calc(25% - .5px);
+          width: calc(75% - 1px);
+          height: calc(25% - 1px);
         }
         .figure[letter="J"][rotate="90"] .content div:last-child {
           left: 25%;
-          top: 0;
+          top: 0.5px;
           width: calc(25% - 1px);
           height: 25%;
         }
         .figure[letter="J"][rotate="180"] .content div:first-child {
           left: 25%;
-          top: 0;
-          width: calc(25% - .5px);
+          top: .5px;
+          width: calc(25% - 1px);
           height: calc(75% - 1px);
         }
         .figure[letter="J"][rotate="180"] .content div:last-child {
           left: calc(50% - 1px);
-          top: 0;
+          top: .5px;
           width: 25%;
           height: calc(25% - 1px);
         }
         .figure[letter="J"][rotate="270"] .content div:first-child {
           left: 25%;
-          top: 0;
-          width: 75%;
-          height: calc(25% - .5px);
+          top: .5px;
+          width: calc(75% - 1px);
+          height: calc(25% - 1px);
         }
         .figure[letter="J"][rotate="270"] .content div:last-child {
           left: 75%;
-          top: calc(25% - .5px);
-          width: 25%;
+          top: calc(25% - 1px);
+          width: calc(25% - 1px);
           height: 25%;
         }
+
       .L {
         height: 15%;
         width: 20%;
@@ -450,23 +471,27 @@
       </div>
     </div>
     <div id="figure" class="figure">
-      <div class="grid">
-        <div class="horizontal-lines">
-          <div></div>
+      <div class="content-wrapper">
+        <div class="grid">
+          <div class="horizontal-lines">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div class="vertical-lines">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+        <div class="content">
           <div></div>
           <div></div>
         </div>
-        <div class="vertical-lines">
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
+        <div class="rotateLabel"></div>
       </div>
-      <div class="content">
-        <div></div>
-        <div></div>
-      </div>
-      <div class="rotateLabel"></div>
     </div>
   </body>
 </html>
