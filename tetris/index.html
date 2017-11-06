@@ -128,16 +128,14 @@
       .figure[letter="I"] .content div {
         background-color: lightblue;
       }
-
       .figure[letter="I"][rotate="0"] .content div,
       .figure[letter="I"][rotate="180"] .content div {
-        top: 0.5px;
-        left: 25%;
+        top: 1px;
+        left: 25% ;
         width: calc(25% - 1px);
-        height: calc(100% - 1px);
+        height: calc(100% - 2px);
       }
-
-      .figure[letter="I"][rotate="90"] .content div, 
+      .figure[letter="I"][rotate="90"] .content div,
       .figure[letter="I"][rotate="270"] .content div {
         top: 25%;
         left: 1px;
@@ -150,15 +148,15 @@
       }
         .figure[letter="J"][rotate="0"] .content div:first-child {
           left: 50%;
-          top: .5px;
+          top: 1px;
           width: calc(25% - 1px);
-          height: calc(75% - 1px);
+          height: calc(75% - 2px);
         }
         .figure[letter="J"][rotate="0"] .content div:last-child {
           left: 25%;
           top: 50%;
           width: 25%;
-          height: calc(25% - .5px);
+          height: calc(25% - 1px);
         }
         .figure[letter="J"][rotate="90"] .content div:first-child {
           left: 25%;
@@ -168,27 +166,27 @@
         }
         .figure[letter="J"][rotate="90"] .content div:last-child {
           left: 25%;
-          top: 0.5px;
+          top: 1px;
           width: calc(25% - 1px);
           height: 25%;
         }
         .figure[letter="J"][rotate="180"] .content div:first-child {
           left: 25%;
-          top: .5px;
+          top: 1px;
           width: calc(25% - 1px);
-          height: calc(75% - 1px);
+          height: calc(75% - 2px);
         }
         .figure[letter="J"][rotate="180"] .content div:last-child {
           left: calc(50% - 1px);
-          top: .5px;
+          top: 1px;
           width: 25%;
-          height: calc(25% - 1px);
+          height: calc(25% - 2px);
         }
         .figure[letter="J"][rotate="270"] .content div:first-child {
           left: 25%;
-          top: .5px;
+          top: 1px;
           width: calc(75% - 1px);
-          height: calc(25% - 1px);
+          height: calc(25% - 2px);
         }
         .figure[letter="J"][rotate="270"] .content div:last-child {
           left: 75%;
@@ -222,7 +220,7 @@
         left: 25%;
         background-color: yellow;
         width: calc(50% - 1px);
-        height: calc(50% - .5px);
+        height: calc(50% - 1px);
       }
 
       .S {
@@ -373,11 +371,11 @@
           if (null != newValue) {
             sessionStorage.setItem(valueName, newValue);
           } else {
-            newValue = sessionStorage.getItem(valueName); 
+            newValue = sessionStorage.getItem(valueName);
             if (null == newValue) {
               newValue = defaultValue;
             }
-          }         
+          }
           return newValue;
         }
         function setCurrentRotate(newValue) {
@@ -395,7 +393,7 @@
             })
           ;
           currentColor = newValue;
-        } 
+        }
         function setCurrentLetter(newValue) {
           newValue = setHelper(newValue, 'currentLetter', 'I');
           currentFigure.setAttribute('letter', newValue);
@@ -422,7 +420,7 @@
           } else if ('ArrowRight' == event.code) {
 
           } else {
-            let letter; 
+            let letter;
             if (event.code.startsWith('Key') && 4 == event.code.length) letter = event.code[3];
             if (letter) {
               if (figuresDef[letter]) {
@@ -456,7 +454,7 @@
             //   currentFigure.style.left = (currentLeft - 10) + '%';
             // } else if ('ArrowRight' == event.code && currentRigth < 100) {
             //   currentFigure.style.left = (currentLeft + 10) + '%';
-            // } else 
+            // } else
 
           // }
         });
