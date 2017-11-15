@@ -729,29 +729,7 @@
       }, []);
       return result;
     }
-    const twentyBase = getBase([
-      [9, 2],
-      [8, 3],
-      [7, 4],
-      [6, 5],
-      [9, 3],
-      [8, 4],
-      [7, 5],
-      [6, 6],
-      [9, 4],
-      [8, 5],
-      [7, 6],
-      [9, 5],
-      [8, 6],
-      [7, 7],
-      [9, 6],
-      [8, 7],
-      [9, 7],
-      [8, 8],
-      [9, 8],
-      [9, 9],
-    ]);
-    const hundredBase = getBase([
+    const deciBase = getBase([
       [1, 1],
       [1, 2],
       [1, 3],
@@ -770,18 +748,89 @@
       [3, 5],
       [4, 4],
     ]);
-    const roundBase =  [
-      [0, 0],
-      [0, 1],
-      [0, 2],
-      [0, 3],
-      [0, 4],
-      [0, 5],
-      [0, 6],
-      [0, 7],
-      [0, 8],
-      [0, 9],
-    ];
+    const unitBase = {
+       0: [
+        // [0, 0],
+        [0, 1],
+        [0, 2],
+        [0, 3],
+        [0, 4],
+        [0, 5],
+        [0, 6],
+        [0, 7],
+        [0, 8],
+        [0, 9],
+      ],
+      9: [
+        [9, 2], // => 11
+        [9, 3], // => 12
+        [9, 4], // => 13
+        [9, 5], // => 14
+        [9, 6], // => 15
+        [9, 7], // => 16
+        [9, 8], // => 17
+        [9, 9], // => 18
+      ],
+      8: [
+        [8, 3], // => 11
+        [8, 4], // => 12
+        [8, 5], // => 13
+        [8, 6], // => 14
+        [8, 7], // => 15
+        [8, 8], // => 16
+        [8, 9], // => 17
+      ],
+      7: [
+        [7, 4], // => 11
+        [7, 5], // => 12
+        [7, 6], // => 13
+        [7, 7], // => 14
+        [7, 8], // => 15
+        [7, 9], // => 16
+      ],
+      6: [
+        [6, 5], // => 11
+        [6, 6], // => 12
+        [6, 7], // => 13
+        [6, 8], // => 14
+        [6, 9], // => 15
+      ],
+      '2-5': [
+        [2, 9], // => 11
+        [3, 8], // => 11
+        [4, 7], // => 11
+        [5, 6], // => 11
+        [3, 9], // => 12
+        [4, 8], // => 12
+        [5, 7], // => 12
+        [4, 9], // => 13
+        [5, 8], // => 13
+        [5, 9], // => 14
+      ],
+      'any': [
+        [9, 2],
+        [8, 3],
+        [7, 4],
+        [6, 5],
+        [9, 3],
+        [8, 4],
+        [7, 5],
+        [6, 6],
+        [9, 4],
+        [8, 5],
+        [7, 6],
+        [9, 5],
+        [8, 6],
+        [7, 7],
+        [9, 6],
+        [8, 7],
+        [9, 7],
+        [8, 8],
+        [9, 8],
+        [9, 9],
+      ],
+    }
+
     function getMultiplicationExercise(base) {
       const key = 'multiplication-' + base;
       return {
@@ -860,25 +909,45 @@
     const hunredExercises = {
       'addition-100': {
         title: 'Сложение до 100',
-        getItems: () => getHundredPairs(twentyBase, hundredBase).map(getAdditionItem),
+        getItems: () => getHundredPairs(unitBase['any'], deciBase).map(getAdditionItem),
       },
       'subtraction-100': {
         title: 'Вычитание до 100',
-        getItems: () => getHundredPairs(twentyBase, hundredBase).map(getSubtractionItem),
+        getItems: () => getHundredPairs(unitBase['any'], deciBase).map(getSubtractionItem),
       },
     };
     const miroslavaExercises = Object.assign({
       'addition-20': {
         title: 'Сложение до 20',
-        getItems: () => shuffle(twentyBase).map(getAdditionItem),
+        getItems: () => shuffle(unitBase['any']).map(getAdditionItem),
       },
       'subtraction-20': {
         title: 'Вычитание до 20',
-        getItems: () => shuffle(twentyBase).map(getSubtractionItem),
+        getItems: () => shuffle(unitBase['any']).map(getSubtractionItem),
       },
       'round-subtraction-100': {
-        title: 'Вычитание круглых чисел до 100',
-        getItems: () => getHundredPairs(roundBase, hundredBase).map(getSubtractionItem),
+        title: 'Вычитание до 100(0)',
+        getItems: () => getHundredPairs(unitBase[0], deciBase).map(getSubtractionItem),
+      },
+      'subtraction-100-9': {
+        title: 'Вычитание до 100(9)',
+        getItems: () => getHundredPairs(unitBase[9], deciBase).map(getSubtractionItem),
+      },
+      'subtraction-100-8': {
+        title: 'Вычитание до 100(8)',
+        getItems: () => getHundredPairs(unitBase[8], deciBase).map(getSubtractionItem),
+      },
+      'subtraction-100-7': {
+        title: 'Вычитание до 100(7)',
+        getItems: () => getHundredPairs(unitBase[7], deciBase).map(getSubtractionItem),
+      },
+      'subtraction-100-6': {
+        title: 'Вычитание до 100(6)',
+        getItems: () => getHundredPairs(unitBase[6], deciBase).map(getSubtractionItem),
+      },
+      'subtraction-100-2-5': {
+        title: 'Вычитание до 100(2-5)',
+        getItems: () => getHundredPairs(unitBase['2-5'], deciBase).map(getSubtractionItem),
       },
     }, hunredExercises);
     const tikhomirExercises = Object.assign({}, hunredExercises, nikiforExercises);
@@ -888,17 +957,17 @@
     function getSubtractionItem(pair) {
       return { title: [_.sum(pair), pair[0]].join(' - ') + ' = ', answer: pair[1] };
     }
-    function getHundredPairs(twentyBase, hundredBase) {
-      if (twentyBase.length >= hundredBase.length) {
-        twentyBase = shuffle(twentyBase);
-        hundredBase = shuffle(hundredBase).concat(shuffle(hundredBase)).slice(0, twentyBase.length);
+    function getHundredPairs(unitBase, deciBase) {
+      if (unitBase.length >= deciBase.length) {
+        unitBase = shuffle(unitBase);
+        deciBase = shuffle(deciBase).concat(shuffle(deciBase)).slice(0, unitBase.length);
       } else {
-        hundredBase = shuffle(hundredBase);
-        twentyBase = shuffle(twentyBase).concat(shuffle(twentyBase)).slice(0, hundredBase.length);
+        deciBase = shuffle(deciBase);
+        unitBase = shuffle(unitBase).concat(shuffle(unitBase)).slice(0, deciBase.length);
       }
-      return twentyBase.map(
+      return unitBase.map(
         pair => _
-          .zip(pair, hundredBase.shift())
+          .zip(pair, deciBase.shift())
           .map(item => item[0] + item[1] * 10)
       );
     }
