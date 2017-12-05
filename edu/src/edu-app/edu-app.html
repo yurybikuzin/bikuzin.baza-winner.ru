@@ -957,19 +957,26 @@
     function getSubtractionItem(pair) {
       return { title: [_.sum(pair), pair[0]].join(' - ') + ' = ', answer: pair[1] };
     }
-    function getHundredPairs(unitBase, deciBase) {
-      if (unitBase.length >= deciBase.length) {
-        unitBase = shuffle(unitBase);
-        deciBase = shuffle(deciBase).concat(shuffle(deciBase)).slice(0, unitBase.length);
-      } else {
-        deciBase = shuffle(deciBase);
-        unitBase = shuffle(unitBase).concat(shuffle(unitBase)).slice(0, deciBase.length);
+    function getBaseOfSpecifiedLength(base, length) {
+      let result = shuffle(base);
+      while (result.length < length) {
+        result = result.concat(shuffle(base));
       }
-      return unitBase.map(
+      result = result.slice(0, length);
+      return result;
+    }
+    function getHundredPairs(unitBase, deciBase, length) {
+      if (undefined == length) {
+        length = Math.max(unitBase.length, deciBase.length);
+      }
+      unitBase = getBaseOfSpecifiedLength(unitBase, length);
+      deciBase = getBaseOfSpecifiedLength(deciBase, length);
+      const result = unitBase.map(
         pair => _
           .zip(pair, deciBase.shift())
           .map(item => item[0] + item[1] * 10)
       );
+      return result;
     }
     const _defs = {
       nikifor: {
@@ -1095,6 +1102,10 @@
       static get observers() {
         return [
         ];
+      }
+      connectedCallback() {
+        super.connectedCallback();
+        window.eduApp = this;
       }
       _computeExerciseProgress(selectedExerciseStep, exerciseItemsChangeRecord) {
         const result = parseInt(selectedExerciseStep, 10) / exerciseItemsChangeRecord.base.length;
