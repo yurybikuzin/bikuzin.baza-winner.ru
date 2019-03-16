@@ -1,0 +1,1584 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"box",
+				"box-sizing: "
+			],
+			[
+				"$mol_time",
+				"$mol_time_interval\tclass"
+			],
+			[
+				"con",
+				"control_item_width\tmethod"
+			],
+			[
+				"b",
+				"buttons\tproperty"
+			],
+			[
+				"_",
+				"_right_width\tproperty"
+			],
+			[
+				"col",
+				"col-resize"
+			],
+			[
+				"co",
+				"columns\tmethod"
+			],
+			[
+				"cou",
+				"columns\tconst"
+			],
+			[
+				"re",
+				"record_ids\tmethod"
+			],
+			[
+				"cur",
+				"cursor_rec_id\tmethod"
+			],
+			[
+				"rec",
+				"records_to_update\tproperty"
+			],
+			[
+				"Bw",
+				"BwGridRecords\ttype"
+			],
+			[
+				"sele",
+				"rec_ids_selected\tmethod"
+			],
+			[
+				"cursor",
+				"cursor_row_id\tmethod"
+			],
+			[
+				"row",
+				"row_ids\tconst"
+			],
+			[
+				"vim",
+				"vim_drop_selection\tmethod"
+			],
+			[
+				"cu",
+				"cursor_row_id\tmethod"
+			],
+			[
+				"vi",
+				"visual\tenum member"
+			],
+			[
+				"visu",
+				"visualLine\tenum member"
+			],
+			[
+				"fun",
+				"function\tstring"
+			],
+			[
+				"$mol_atom",
+				"$mol_atom_force\tclass"
+			],
+			[
+				"Vim",
+				"VimMode\tenum"
+			],
+			[
+				"al",
+				"altKey\tconst"
+			],
+			[
+				"ins",
+				"instanceof\tkeyword"
+			],
+			[
+				"defa",
+				"defaultMode\tconst"
+			],
+			[
+				"is",
+				"isInteger\tmethod"
+			],
+			[
+				"proce",
+				"processed\tconst"
+			],
+			[
+				"item",
+				"item_store\tparameter"
+			],
+			[
+				"$mol_fo",
+				"$mol_atom_force\tclass"
+			],
+			[
+				"ev",
+				"event_key_press\tmethod"
+			],
+			[
+				"$bw_vim_ev",
+				"$bw_vim_event_upper\tfunction"
+			],
+			[
+				"VimCmd",
+				"VimCmdOpt\tinterface"
+			],
+			[
+				"ke",
+				"keySeqNumber\tlet"
+			],
+			[
+				"confor",
+				"conformResult\tconst"
+			],
+			[
+				"c",
+				"ctrlKey\tproperty"
+			],
+			[
+				"o",
+				"object_host()\tproperty"
+			],
+			[
+				"dom",
+				"dom_node\tmethod"
+			],
+			[
+				"reco",
+				"records\tmethod"
+			],
+			[
+				"BwGrid",
+				"BwGridRecords\tinterface"
+			],
+			[
+				"val",
+				"val_actual\tlet"
+			],
+			[
+				"new",
+				"new_idx\tconst"
+			],
+			[
+				"adjus",
+				"adjust_scroll_to_cursor_idx\tmethod"
+			],
+			[
+				"event",
+				"eventItem\tconst"
+			],
+			[
+				"seq",
+				"seqItem\tconst"
+			],
+			[
+				"off",
+				"offsetHeight\tconst"
+			],
+			[
+				"thr",
+				"threshold\tlet"
+			],
+			[
+				"HT",
+				"HTMLElement\tvar"
+			],
+			[
+				"file",
+				"filename"
+			],
+			[
+				"com",
+				"componentName"
+			],
+			[
+				"path",
+				"path_items"
+			],
+			[
+				"inse",
+				"inserted"
+			],
+			[
+				"out",
+				"out_count"
+			],
+			[
+				"ali",
+				"align-items: "
+			],
+			[
+				"selected",
+				"selected_block"
+			],
+			[
+				"Button",
+				"ButtonBar"
+			],
+			[
+				"backgrou",
+				"background-color\tproperty"
+			],
+			[
+				"min",
+				"min-height\tproperty"
+			],
+			[
+				"no",
+				"normal\twhite-space"
+			],
+			[
+				"flex",
+				"flex-basis\tproperty"
+			],
+			[
+				"bw-hd",
+				"bw-hd-width"
+			],
+			[
+				"flex-",
+				"flex-direction\tproperty"
+			],
+			[
+				"bw-lo",
+				"bw-login-form-regular-font-weight"
+			],
+			[
+				"pa",
+				"padding-right\tproperty"
+			],
+			[
+				"selece",
+				"selected_tn"
+			],
+			[
+				"mol",
+				"mol_view"
+			],
+			[
+				"qu",
+				"quadra"
+			],
+			[
+				"Bo",
+				"BodyRow"
+			],
+			[
+				"mo",
+				"mol_view"
+			],
+			[
+				"commentLin",
+				"commentLineTail"
+			],
+			[
+				"me",
+				"meta_scope\tmeta_scope:"
+			],
+			[
+				"async",
+				"asyncGet"
+			],
+			[
+				"h",
+				"htmlLoading"
+			],
+			[
+				"loa",
+				"loadinghtml"
+			],
+			[
+				"it",
+				"itTitle"
+			],
+			[
+				"itFor",
+				"itForCache"
+			],
+			[
+				"tn",
+				"tnTitle"
+			],
+			[
+				"w",
+				"word-spacing\tproperty"
+			],
+			[
+				"font-sy",
+				"font-style\tproperty"
+			],
+			[
+				"afCell",
+				"afCellIdx"
+			],
+			[
+				"tit",
+				"titleSuffix"
+			],
+			[
+				"titl",
+				"titlePrefix"
+			],
+			[
+				"afC",
+				"afCellIdx"
+			],
+			[
+				"afRow",
+				"afRowIdx"
+			],
+			[
+				"wr",
+				"word-wrap\tproperty"
+			],
+			[
+				"key",
+				"keysDef"
+			],
+			[
+				"try",
+				"tryTimeout"
+			],
+			[
+				"rm",
+				"rmqQueueUrl"
+			],
+			[
+				"env",
+				"envArg"
+			],
+			[
+				"comm",
+				"commaSeparatorOptional\tcontext"
+			],
+			[
+				"de",
+				"delimiter"
+			],
+			[
+				"ec",
+				"escape\tescape:"
+			],
+			[
+				"se",
+				"section"
+			],
+			[
+				"serv",
+				"serviceDef"
+			],
+			[
+				"beginO",
+				"beginOfExpr"
+			],
+			[
+				"begin",
+				"beginOfArray"
+			],
+			[
+				"varSpec",
+				"varSpecChainInclude\tcontext"
+			],
+			[
+				"exp",
+				"exprInclude"
+			],
+			[
+				"mapI",
+				"mapIncludeHelper\tcontext"
+			],
+			[
+				"bw",
+				"bwTagDir"
+			],
+			[
+				"beg",
+				"beginOfExpr"
+			],
+			[
+				"expr",
+				"exprInclude\tcontext"
+			],
+			[
+				"end",
+				"endOfExpr"
+			],
+			[
+				"defKey",
+				"defKeysDefExprItem"
+			],
+			[
+				"endOf",
+				"endOfArgs\tvariable"
+			],
+			[
+				"varSpe",
+				"varSpecInclude"
+			],
+			[
+				"num",
+				"numberInclude"
+			],
+			[
+				"en",
+				"entity"
+			],
+			[
+				"patch",
+				"pathSegmentSpec\tcontext"
+			],
+			[
+				"pathTail",
+				"pathTailIterator\tcontext"
+			],
+			[
+				"pathT",
+				"pathTailInclude"
+			],
+			[
+				"subExp",
+				"subExprEnd"
+			],
+			[
+				"git",
+				"github"
+			],
+			[
+				"defEx",
+				"defExpr"
+			],
+			[
+				"json",
+				"jsonQuotedEscapeRunes"
+			],
+			[
+				"str",
+				"stringInclude\tcontext"
+			],
+			[
+				"ill",
+				"illegalInclude"
+			],
+			[
+				"varS",
+				"varSpecStarter"
+			],
+			[
+				"int",
+				"intExpr"
+			],
+			[
+				"par",
+				"parameter"
+			],
+			[
+				"sub",
+				"beginOfSubExpr"
+			],
+			[
+				"p",
+				"punctuation"
+			],
+			[
+				"esc",
+				"escapeRunes"
+			],
+			[
+				"dou",
+				"doubleQuotedValidRune"
+			],
+			[
+				"meta",
+				"meta_scope"
+			],
+			[
+				"beginOf",
+				"beginOfMap"
+			],
+			[
+				"in",
+				"include"
+			],
+			[
+				"pathS",
+				"pathSegmentSeparator"
+			],
+			[
+				"va",
+				"variable"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/edu-app/edu-app.html",
+			"settings":
+			{
+				"buffer_size": 39349,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 873,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "build/bundled/index.html",
+			"settings":
+			{
+				"buffer_size": 396728,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"git:s",
+				"Git: Status"
+			],
+			[
+				"packa in",
+				"Package Control: Install Package"
+			],
+			[
+				"git:di",
+				"Git: Diff"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"prv",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"package in",
+				"Package Control: Install Package"
+			],
+			[
+				"git",
+				"Git: Status"
+			],
+			[
+				"packa",
+				"Package Control: Remove Package"
+			],
+			[
+				"gi",
+				"Git: Status"
+			],
+			[
+				"g",
+				"Git: Status"
+			],
+			[
+				"git:st",
+				"Git: Status"
+			],
+			[
+				"git:",
+				"Git: Status"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"gitst",
+				"Git: Status"
+			],
+			[
+				"gits",
+				"Git: Status"
+			],
+			[
+				"git:sta",
+				"Git: Status"
+			],
+			[
+				"git bla",
+				"Git: Blame"
+			],
+			[
+				"git:stat",
+				"Git: Status"
+			],
+			[
+				"git: st",
+				"Git: Status"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"sublimelinter setting",
+				"Preferences: SublimeLinter Settings – User"
+			],
+			[
+				"vintage",
+				"Package Control: Advanced Install Package"
+			],
+			[
+				":w",
+				":w - Save"
+			]
+		],
+		"width": 428.0
+	},
+	"console":
+	{
+		"height": 181.0,
+		"history":
+		[
+			"view.run_command('smol_create_view_ts')",
+			"view.run_command('smol-create-view-ts2')",
+			"view.run_command('smol-create-view-ts')",
+			"view.run('smol-create-view-ts')",
+			"view.run_command('example')",
+			"show_scope_name()",
+			"show_scope_name",
+			"sublime.version()",
+			"import this",
+			"sublime.version()",
+			"``sublime.log_commands(True)``",
+			"`sublime.log_commands(True)`",
+			"show_scope_name"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/yurybikuzin/bikuzin.baza-winner.ru/edu"
+	],
+	"file_history":
+	[
+		"/Users/yurybikuzin/w72-Smol/mol/grid/grid.view.tree",
+		"/Users/yurybikuzin/w72-Smol/bw/settings/settings.view.css",
+		"/Users/yurybikuzin/w72-Smol/tg/index.html",
+		"/Users/yurybikuzin/w72-Smol/bw/-/index.html",
+		"/Users/yurybikuzin/w72-Smol/bw/grid/grid.view.ts",
+		"/Users/yurybikuzin/w72-Smol/bw/grid/grid.view.tree",
+		"/Users/yurybikuzin/w72-Smol/bw/input/input.view.css",
+		"/Users/yurybikuzin/w72-Smol/bw/grid/some/some.view.tree",
+		"/Users/yurybikuzin/w72-Smol/sublime.sh",
+		"/Users/yurybikuzin/w72-Smol/Smol/template.view.ts",
+		"/Users/yurybikuzin/Library/Application Support/Sublime Text 3/Packages/TypeScript/main.py",
+		"/Users/yurybikuzin/Library/Application Support/Sublime Text 3/Packages/GoSublime/gslint.py",
+		"/Users/yurybikuzin/Library/Application Support/Sublime Text 3/Packages/Babel/Babel.py",
+		"/Users/yurybikuzin/Library/Application Support/Sublime Text 3/Packages/Smol/Smol.py",
+		"/Users/yurybikuzin/w72-Smol/bw/mainmenu/mainmenu.view.css",
+		"/Users/yurybikuzin/w72-Smol/bw/app/-/web.css",
+		"/Users/yurybikuzin/w72-Smol/bw/settings/settings.view.ts",
+		"/Users/yurybikuzin/w72-Smol/bw/bw.ts",
+		"/Users/yurybikuzin/w72-Smol/bw/app/app.view.ts",
+		"/Users/yurybikuzin/w72-Smol/mol/mem/mem.ts",
+		"/Users/yurybikuzin/w72-Smol/bw/grid/-view.tree/grid.view.tree.ts",
+		"/Users/yurybikuzin/w72-Smol/mol/string/string.view.tree",
+		"/Users/yurybikuzin/w72-Smol/bw/bowser/bowser.ts",
+		"/Users/yurybikuzin/w72-Smol/bw/block/block.view.tree",
+		"/Users/yurybikuzin/w72-Smol/bw/app/app.view.tree",
+		"/Users/yurybikuzin/w72-Smol/bw/app/app.view.css",
+		"/Users/yurybikuzin/w72-Smol/bw/settings/settings.view.tree",
+		"/Users/yurybikuzin/w72-Smol/bw/app/index.html",
+		"/Users/yurybikuzin/w72-Smol/bw/block/block.view.ts",
+		"/Users/yurybikuzin/Library/Application Support/Sublime Text 3/Packages/TypeScript/typescript/commands/rename.py",
+		"/Users/yurybikuzin/Library/Application Support/Sublime Text 3/Packages/sublime_lib/st3/sublime_lib/view_stream.py",
+		"/Users/yurybikuzin/Library/Application Support/Sublime Text 3/Packages/TypeScript/typescript/commands/format.py",
+		"/Users/yurybikuzin/w72-Smol/Smol/Main.sublime-menu",
+		"/Users/yurybikuzin/Library/Application Support/Sublime Text 3/Packages/Smol/Default (OSX).sublime-keymap",
+		"/Users/yurybikuzin/w72-Smol/Smol/view.tree.tmPreferences",
+		"/Users/yurybikuzin/w72-Smol/bw/mainmenu/mainmenu.view.tree",
+		"/Users/yurybikuzin/w72-Smol/bw/settings/-view.tree/settings.view.tree.ts",
+		"/Users/yurybikuzin/w72-Smol/bw/input/deep/deep.view.tree",
+		"/Users/yurybikuzin/w72-Smol/mol/meter/meter.view.ts",
+		"/Users/yurybikuzin/w72-Smol/mol/view/view.ts",
+		"/Users/yurybikuzin/w72-Smol/mol/dom/render/render.ts",
+		"/Users/yurybikuzin/w72-Smol/bw/font.css",
+		"/Users/yurybikuzin/w72-Smol/mol/view/selection/selection.ts",
+		"/Users/yurybikuzin/w72-Smol/mol/view/tree/tree.ts",
+		"/Users/yurybikuzin/w72-Smol/bw/input/input.view.tree",
+		"/Users/yurybikuzin/w72-Smol/mol/grid/grid.view.ts",
+		"/Users/yurybikuzin/w72-Smol/mol/grid/-view.tree/grid.view.tree.ts",
+		"/Users/yurybikuzin/w72-Smol/Smol/template.view.css",
+		"/Users/yurybikuzin/Library/Application Support/Sublime Text 3/Packages/Smol/Main.sublime-menu",
+		"/Users/yurybikuzin/w72-Smol/mol/check/check.view.tree",
+		"/Users/yurybikuzin/w72-Smol/mol/button/button_types.view.tree",
+		"/Users/yurybikuzin/w72-Smol/mol/button/button.view.tree",
+		"/Users/yurybikuzin/w72-Smol/mol/button/button.view.ts",
+		"/Users/yurybikuzin/bw/grid/some/some.view.tree",
+		"/Users/yurybikuzin/grid/bw/some/some.view.tree",
+		"/Users/yurybikuzin/w72-Smol/Smol/template.view.tree",
+		"/Users/yurybikuzin/Library/Application Support/Sublime Text 3/Packages/TypeScript/typescript/commands/build.py",
+		"/Users/yurybikuzin/w72-Smol/Smol/Default (OSX).sublime-keymap",
+		"/Users/yurybikuzin/Library/Application Support/Sublime Text 3/Packages/TypeScript/typescript/libs/node_client.py",
+		"/Users/yurybikuzin/Library/Application Support/Sublime Text 3/Packages/TypeScript/Preferences.sublime-settings",
+		"/Users/yurybikuzin/Library/Application Support/Sublime Text 3/Packages/GoSublime/gs9o.py",
+		"/Users/yurybikuzin/Library/Application Support/Sublime Text 3/Packages/Smol/template.view.ts",
+		"/Users/yurybikuzin/w72-Smol/sublime/view.tree.sublime-syntax",
+		"/Users/yurybikuzin/Library/Application Support/Sublime Text 3/Packages/Babel/Main.sublime-menu",
+		"/Users/yurybikuzin/Library/Application Support/Sublime Text 3/Packages/GoSublime/Default (OSX).sublime-keymap",
+		"/Users/yurybikuzin/w72-Smol/Smol/Smol.py",
+		"/Users/yurybikuzin/w72-Smol/sublime/Smol.py",
+		"/Users/yurybikuzin/w72-Smol/bw/login/login.view.css",
+		"/Users/yurybikuzin/w72-Smol/bw/-/web.js",
+		"/Users/yurybikuzin/w72-Smol/bw/bw.view.css",
+		"/Users/yurybikuzin/w72-Smol/bw/-/web.css",
+		"/Users/yurybikuzin/w72-Smol/bw/theme/theme.css",
+		"/Users/yurybikuzin/w72-Smol/bw/theme/autogenerated.css",
+		"/Users/yurybikuzin/w72-Smol/mol/scroll/scroll.view.tree",
+		"/Users/yurybikuzin/w72-Smol/rebuild_mol_build.sh",
+		"/Users/yurybikuzin/w72-Smol/bw/easter/easter.view.ts",
+		"/Users/yurybikuzin/w72-Smol/mol/scroll/scroll.view.ts",
+		"/Users/yurybikuzin/w72-Smol/mol/grid/demo/demo.view.ts",
+		"/Users/yurybikuzin/w72-Smol/build.sh",
+		"/Users/yurybikuzin/w72-Smol/theme.pl",
+		"/Users/yurybikuzin/w72-Smol/mol/graph/graph.ts",
+		"/Users/yurybikuzin/w72-Smol/bw/bw.view.ts",
+		"/Users/yurybikuzin/w72-Smol/bw/bw.view.tree",
+		"/Users/yurybikuzin/w72-Smol/bw/easter/easter.view.tree",
+		"/Users/yurybikuzin/Library/Application Support/Sublime Text 3/Packages/User/view.tree.sublime-syntax",
+		"/Users/yurybikuzin/w72-Smol/view.ts.sublime-snippet",
+		"/Users/yurybikuzin/w72-Smol/mol/log/log.ts",
+		"/Users/yurybikuzin/w72-Smol/bw/input/checkable/checkable.view.tree",
+		"/Users/yurybikuzin/w72-Smol/bw/input/input.view.ts",
+		"/Users/yurybikuzin/w72-Smol/mol/build/build.node.ts",
+		"/Users/yurybikuzin/w72-Smol/mol/dom/context/context.node.ts",
+		"/Users/yurybikuzin/w72-Smol/bw/bw_controls.view.tree",
+		"/Users/yurybikuzin/w72-Smol/bw/bw_controls.view.css",
+		"/Users/yurybikuzin/Library/Application Support/Sublime Text 3/Packages/User/Smol.py",
+		"/Users/yurybikuzin/w72-Smol/bw/bw_theme.css",
+		"/Users/yurybikuzin/w72-Smol/bw/app/app.tree",
+		"/Users/yurybikuzin/w72-Smol/bw/bw_theme_autogenerated.css",
+		"/Users/yurybikuzin/w72-Smol/bw/theme/theme.view.tree",
+		"/Users/yurybikuzin/w72-Smol/bw/theme/theme_source.css",
+		"/Users/yurybikuzin/w72-Smol/bw/theme/theme_settings.css",
+		"/Users/yurybikuzin/w72-Smol/bw/theme/helper.css",
+		"/Users/yurybikuzin/w72-Smol/mol/view/view.test.ts",
+		"/Users/yurybikuzin/w72-Smol/bw/-view.tree/bw.view.tree.ts",
+		"/Users/yurybikuzin/w72-Smol/bw/bw_controls.view.ts",
+		"/Users/yurybikuzin/w72-Smol/mol/switch/switch.view.ts",
+		"/Users/yurybikuzin/w72-Smol/mol/switch/-view.tree/switch.view.tree.ts",
+		"/Users/yurybikuzin/w72-Smol/package-lock.json",
+		"/Users/yurybikuzin/w72-Smol/node_modules/jsdom/lib/jsdom.js",
+		"/Users/yurybikuzin/w72-Smol/mol/switch/switch.view.tree",
+		"/Users/yurybikuzin/w72-Smol/.gitattributes",
+		"/Users/yurybikuzin/w72-Smol/.gitignore",
+		"/Users/yurybikuzin/w72-Smol/package.json",
+		"/Users/yurybikuzin/w72-Smol/node_modules/jsdom/lib/jsdom/level3/xpath.js",
+		"/Users/yurybikuzin/socionics-Smol/package.json",
+		"/Users/yurybikuzin/w72-Smol/mol/switch/demo/demo.view.tree",
+		"/Users/yurybikuzin/w72-Smol/mol/app/life/life.view.tree",
+		"/Users/yurybikuzin/w72-Smol/mol/app/demo/demo.view.ts",
+		"/Users/yurybikuzin/w72-Smol/bw/login/login.view.ts",
+		"/Users/yurybikuzin/w72-Smol/bw/login/login.view.tree",
+		"/Users/yurybikuzin/w72-Smol/bw/login/-view.tree/login.view.tree.ts",
+		"/Users/yurybikuzin/w72-Smol/bw/index.html",
+		"/Users/yurybikuzin/w72-Smol/deploy.sh",
+		"/Users/yurybikuzin/w72-Smol/mol/perf/sierp/serp.view.tree",
+		"/Users/yurybikuzin/w72-Smol/mol/perf/sierp/serp.view.ts",
+		"/Users/yurybikuzin/w72-Smol/mol/app/demo/demo.view.tree",
+		"/Users/yurybikuzin/w72-Smol/chok.js",
+		"/Users/yurybikuzin/w72-Smol/bw/deploy.sh",
+		"/Users/yurybikuzin/w72-Smol/mol/app/habhub/habhub.view.tree"
+	],
+	"find":
+	{
+		"height": 39.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"getMultiplicationExercises",
+			"lodash",
+			"getMultiplicationExercises"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": false,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/edu-app/edu-app.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 39349,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								28246,
+								28246
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 15839.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 873,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								279,
+								265
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JSON Key-Value/JSON Key-Value.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "build/bundled/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 396728,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 63330.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			],
+			[
+				2,
+				0,
+				3,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.702941897984,
+			0.846980640028,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.doc":
+	{
+		"height": 0.0
+	},
+	"output.find_results":
+	{
+		"height": 100.0
+	},
+	"pinned_build_system": "",
+	"project": "edu.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"build",
+				"build/bundled/index.html"
+			],
+			[
+				"packa",
+				"package.json"
+			],
+			[
+				"edu",
+				"src/edu-app/edu-app.html"
+			],
+			[
+				"tg/app",
+				"w72-Smol/tg/app/app.view.tree"
+			],
+			[
+				"mol/grid",
+				"w72-Smol/mol/grid/grid.view.ts"
+			],
+			[
+				"bw/gri",
+				"w72-Smol/bw/grid/grid.view.ts"
+			],
+			[
+				"mol/time/in",
+				"w72-Smol/mol/time/interval/interval.ts"
+			],
+			[
+				"mol/time",
+				"w72-Smol/mol/time/readme.md"
+			],
+			[
+				"mol",
+				"w72-Smol/mol_patch.ts"
+			],
+			[
+				" mol/view/tree",
+				"w72-Smol/mol/view/tree/tree.ts"
+			],
+			[
+				"bw/app",
+				"w72-Smol/bw/app/app.view.ts"
+			],
+			[
+				"mol/svg/lin",
+				"w72-Smol/mol/svg/line/line.view.tree"
+			],
+			[
+				"mol/svg",
+				"w72-Smol/mol/svg/svg.view.tree"
+			],
+			[
+				"mol/svg/ro",
+				"w72-Smol/mol/svg/root/root.view.tree"
+			],
+			[
+				"mol/sv",
+				"w72-Smol/mol/svg/svg.view.tree"
+			],
+			[
+				"bw/icon",
+				"w72-Smol/bw/icon/icon.view.tree"
+			],
+			[
+				"mol/svg/root",
+				"w72-Smol/mol/svg/root/root.view.tree"
+			],
+			[
+				"tg/fon",
+				"w72-Smol/tg/font.css"
+			],
+			[
+				"app.",
+				"w72-Smol/bw/app/app.view.css"
+			],
+			[
+				"bw.css",
+				"w72-Smol/bw/bw.css"
+			],
+			[
+				"bw/app/vi",
+				"w72-Smol/bw/app/app.view.css"
+			],
+			[
+				"bw/app/in",
+				"w72-Smol/bw/app/index.html"
+			],
+			[
+				"bw/in",
+				"w72-Smol/bw/-/index.html"
+			],
+			[
+				"niki4/in",
+				"w72-Smol/niki4/index.html"
+			],
+			[
+				"niki",
+				"w72-Smol/niki4/niki4.view.css"
+			],
+			[
+				"mol/view/tree",
+				"w72-Smol/mol/view/tree/tree.ts"
+			],
+			[
+				"tree",
+				"w72-Smol/mol/view/tree/tree.ts"
+			],
+			[
+				"bw/set",
+				"w72-Smol/bw/settings/settings.view.css"
+			],
+			[
+				"bw/grid",
+				"w72-Smol/bw/grid/grid.view.ts"
+			],
+			[
+				"vim",
+				"w72-Smol/bw/vim/vim.view.ts"
+			],
+			[
+				"bw/input",
+				"w72-Smol/bw/input/input.view.ts"
+			],
+			[
+				"bw/vim",
+				"w72-Smol/bw/vim/vim.view.ts"
+			],
+			[
+				"bw.ts",
+				"w72-Smol/bw/bw.ts"
+			],
+			[
+				"grid",
+				"w72-Smol/bw/grid/grid.view.ts"
+			],
+			[
+				"bw/se",
+				"w72-Smol/bw/settings/settings.view.ts"
+			],
+			[
+				"bw/vi",
+				"w72-Smol/bw/vim/vim.view.ts"
+			],
+			[
+				"mol/string",
+				"w72-Smol/mol/string/string.view.ts"
+			],
+			[
+				"bw/inpu",
+				"w72-Smol/bw/input/input.view.ts"
+			],
+			[
+				"bw/input/te",
+				"w72-Smol/bw/input/textarea/textarea.view.tree"
+			],
+			[
+				"mol/button",
+				"w72-Smol/mol/button/button.view.tree"
+			],
+			[
+				"bw/button",
+				"w72-Smol/bw/button/major/major.view.tree"
+			],
+			[
+				"mol/strin",
+				"w72-Smol/mol/string/string.view.tree"
+			],
+			[
+				"bw/work",
+				"w72-Smol/bw/workspace/workspace.view.ts"
+			],
+			[
+				" bw/sett",
+				"w72-Smol/bw/settings/settings.view.tree"
+			],
+			[
+				"mol/str",
+				"w72-Smol/mol/string/string.view.ts"
+			],
+			[
+				"mol/butt",
+				"w72-Smol/mol/button/button.view.tree"
+			],
+			[
+				"bw/button/ma",
+				"w72-Smol/bw/button/major/major.view.tree"
+			],
+			[
+				"eas",
+				"w72-Smol/bw/easter/easter.view.tree"
+			],
+			[
+				"mol/mem",
+				"w72-Smol/mol/mem/mem.ts"
+			],
+			[
+				"",
+				"w72-Smol/mol/view/tree/tree.ts"
+			],
+			[
+				"bw/gr",
+				"w72-Smol/bw/grid/grid.view.tree"
+			],
+			[
+				"mol/view.ts",
+				"w72-Smol/mol/view/view.ts"
+			],
+			[
+				"bw/gir",
+				"w72-Smol/bw/grid/grid.view.tree"
+			],
+			[
+				"bw.t",
+				"w72-Smol/bw/bw.ts"
+			],
+			[
+				"bw/input/dee",
+				"w72-Smol/bw/input/deep/deep.view.tree"
+			],
+			[
+				"bw/sett",
+				"w72-Smol/bw/settings/settings.view.tree"
+			],
+			[
+				"bw/blo",
+				"w72-Smol/bw/block/block.view.ts"
+			],
+			[
+				"blo",
+				"w72-Smol/bw/block/block.view.ts"
+			],
+			[
+				"bw/block",
+				"w72-Smol/bw/block/block.view.ts"
+			],
+			[
+				"bw/bo",
+				"w72-Smol/bw/block/block.view.tree"
+			],
+			[
+				"mol/meter",
+				"w72-Smol/mol/meter/meter.view.ts"
+			],
+			[
+				"font",
+				"w72-Smol/bw/font.css"
+			],
+			[
+				"mol/view/sele",
+				"w72-Smol/mol/view/selection/selection.ts"
+			],
+			[
+				"mol/render",
+				"w72-Smol/mol/dom/render/render.ts"
+			],
+			[
+				"mol/view",
+				"w72-Smol/mol/view/view.ts"
+			],
+			[
+				"mol/che",
+				"w72-Smol/mol/check/check.view.tree"
+			],
+			[
+				"bw/bl",
+				"w72-Smol/bw/block/block.view.ts"
+			],
+			[
+				"bw/g",
+				"w72-Smol/bw/grid/grid.view.ts"
+			],
+			[
+				"app",
+				"w72-Smol/bw/app/app.view.ts"
+			],
+			[
+				"bw/bow",
+				"w72-Smol/bw/bowser/bowser.ts"
+			],
+			[
+				"bw/app/view",
+				"w72-Smol/bw/app/app.view.ts"
+			],
+			[
+				"bw/main",
+				"w72-Smol/bw/mainmenu/mainmenu.view.tree"
+			],
+			[
+				"Smol",
+				"Packages/Smol/Smol.py"
+			],
+			[
+				"view",
+				"w72-Smol/Smol/view.tree.tmPreferences"
+			],
+			[
+				"bw/app/web.css",
+				"w72-Smol/bw/app/-/web.css"
+			],
+			[
+				"bw/maimn",
+				"w72-Smol/bw/mainmenu/mainmenu.view.css"
+			],
+			[
+				"Package/Smol/De",
+				"Packages/Smol/Default (OSX).sublime-keymap"
+			],
+			[
+				"Main",
+				"Packages/Smol/Main.sublime-menu"
+			],
+			[
+				"su",
+				"w72-Smol/sublime.sh"
+			],
+			[
+				"temp",
+				"w72-Smol/Smol/template.view.ts"
+			],
+			[
+				"main",
+				"Packages/TypeScript/main.py"
+			],
+			[
+				"templa",
+				"w72-Smol/Smol/template.view.ts"
+			],
+			[
+				"Def",
+				"w72-Smol/Smol/Default (OSX).sublime-keymap"
+			],
+			[
+				"Smol/def",
+				"Packages/Smol/Default (OSX).sublime-keymap"
+			],
+			[
+				"Default(M",
+				"Packages/GoSublime/Default (OSX).sublime-keymap"
+			],
+			[
+				"Main.su",
+				"Packages/Babel/Main.sublime-menu"
+			],
+			[
+				"bw/grid/",
+				"w72-Smol/bw/grid/grid.view.ts"
+			],
+			[
+				"subli",
+				"w72-Smol/sublime.sh"
+			],
+			[
+				"sub",
+				"w72-Smol/sublime.sh"
+			],
+			[
+				".py",
+				"Packages/GoSublime/gs9o.py"
+			],
+			[
+				"Smo",
+				"w72-Smol/sublime/Smol.py"
+			],
+			[
+				"scroll",
+				"w72-Smol/mol/scroll/scroll.view.ts"
+			],
+			[
+				"mol/scroll",
+				"w72-Smol/mol/scroll/scroll.view.tree"
+			],
+			[
+				"mol/vie",
+				"w72-Smol/mol/view/view.ts"
+			],
+			[
+				"bw/input/ch",
+				"w72-Smol/bw/input/checkable/checkable.view.tree"
+			],
+			[
+				"mol/log",
+				"w72-Smol/mol/log/log.ts"
+			],
+			[
+				"buil",
+				"w72-Smol/mol/build/build.node.ts"
+			],
+			[
+				"/bw/grid",
+				"w72-Smol/bw/grid/grid.view.ts"
+			],
+			[
+				"bw.view",
+				"w72-Smol/bw/bw.view.ts"
+			],
+			[
+				"bw.v",
+				"w72-Smol/bw/bw.view.tree"
+			],
+			[
+				"auto",
+				"w72-Smol/bw/theme/autogenerated.css"
+			],
+			[
+				"theme",
+				"w72-Smol/bw/theme/theme.css"
+			],
+			[
+				"bw/them",
+				"w72-Smol/bw/theme/theme.css"
+			],
+			[
+				"web.css",
+				"w72-Smol/bw/-/web.css"
+			],
+			[
+				"bw_the",
+				"w72-Smol/bw/bw_theme.css"
+			],
+			[
+				"bw.vie",
+				"w72-Smol/bw/bw.view.css"
+			],
+			[
+				"web.c",
+				"w72-Smol/bw/-/web.css"
+			],
+			[
+				"theme_ou",
+				"w72-Smol/bw/theme/theme_source.css"
+			],
+			[
+				"web",
+				"w72-Smol/bw/-/web.css"
+			],
+			[
+				"theme_s",
+				"w72-Smol/bw/theme/theme_settings.css"
+			],
+			[
+				"them",
+				"w72-Smol/bw/theme/theme.css"
+			],
+			[
+				"helpe",
+				"w72-Smol/bw/theme/helper.css"
+			],
+			[
+				"web.cs",
+				"w72-Smol/bw/-/web.css"
+			],
+			[
+				"rebu",
+				"w72-Smol/rebuild_mol_build.sh"
+			],
+			[
+				"buiild",
+				"w72-Smol/mol/build/build.node.ts"
+			],
+			[
+				"bw.",
+				"w72-Smol/bw/bw.view.css"
+			],
+			[
+				"help",
+				"w72-Smol/bw/theme/helper.css"
+			],
+			[
+				"bw_th",
+				"w72-Smol/bw/bw_theme.css"
+			],
+			[
+				"bw",
+				"w72-Smol/bw/bw.view.tree"
+			],
+			[
+				"conte",
+				"w72-Smol/mol/dom/context/context.node.ts"
+			],
+			[
+				"build.",
+				"w72-Smol/mol/build/build.node.ts"
+			],
+			[
+				"web.js",
+				"w72-Smol/bw/-/web.js"
+			],
+			[
+				"bw.viw",
+				"w72-Smol/bw/bw.view.tree"
+			],
+			[
+				"theme.",
+				"w72-Smol/theme.pl"
+			],
+			[
+				"bw_con",
+				"w72-Smol/bw/bw_controls.view.tree"
+			],
+			[
+				"bw_contr",
+				"w72-Smol/bw/bw_controls.view.tree"
+			],
+			[
+				"bw/settings",
+				"w72-Smol/bw/settings/settings.view.ts"
+			],
+			[
+				"mol/buto",
+				"w72-Smol/mol/button/button.view.tree"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 266.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -8,7 +8,7 @@
     "build": "polymer build",
     "deploy": "npm run deploy:unbundled",
     "deploy:bundled": "npm run clean-before-deploy && scp -C -r build/bundled stable-bikuzin.baza-winner.ru:/var/www/bikuzin/edu/",
-    "deploy:unbundled": "npm run clean-before-deploy && npm run prepare-unbundled && scp -C -r build/unbundled stable-bikuzin.baza-winner.ru:/var/www/bikuzin/edu/",
+    "deploy:unbundled": "npm run prepare-unbundled && npm run clean-before-deploy && scp -C -r build/unbundled stable-bikuzin.baza-winner.ru:/var/www/bikuzin/edu/",
     "clean-before-deploy": "ssh stable-bikuzin.baza-winner.ru rm -rf /var/www/bikuzin/edu",
     "prepare-unbundled": "sed -E -i '' 's/(href|src)=\"\\//\\1=\"/g' build/unbundled/index.html"
   },
